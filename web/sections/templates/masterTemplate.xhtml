@@ -1,0 +1,172 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html 
+    xmlns:ds="http://deltaspike.apache.org/jsf"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:misc="http://java.sun.com/jsf/composite/misc"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+    <!--          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+          xmlns:h="http://xmlns.jcp.org/jsf/html"
+          xmlns="http://www.w3.org/1999/xhtml"-->
+
+
+    <f:view contentType="text/html">
+        <h:head>
+            <!--            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+                        <h:outputStylesheet name="./css/default.css"/>
+                        <h:outputStylesheet name="./css/cssLayout.css"/>
+                        <title>Facelets Template</title>-->
+
+            <!--Active la session-->
+            #{profileBean.alive}
+
+
+            <f:facet name="first">
+                <meta content="text/html; charset=UTF-8"  http-equiv="Content-Type" />
+                <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+            </f:facet>
+
+            <title>
+                <ui:insert name="windowTitle" id="profilTemplateWindowTitleId">
+                    <h:outputText value="#{bundle['project_title']}"
+            </ui:insert>
+        </title>
+
+        <h:outputStylesheet name="css/hPBasic.css" library="styles" />
+        <h:outputStylesheet name="css/hPUI.css" library="styles" />
+        <h:outputStylesheet name="css/hPIcon.css" library="styles" />
+
+        <!-- les CSS et JS suivants sont internes à la librairie PRIMEFACES -->
+        <h:outputStylesheet name="theme.css" library="primefaces-#{theme}" />
+        <h:outputStylesheet name="jquery/ui/jquery-ui.css" library="primefaces" />
+        <h:outputScript name="jquery/jquery.js" library="primefaces" />
+        <h:outputScript name="jquery/jquery-plugins.js" library="primefaces" />
+
+
+        <script type="text/javascript">
+            function handleComplete(xhr, status, args) {
+                if (args.saved) {
+                    return true;
+                }
+                return false;
+            }
+        </script>
+
+        <ui:insert name="pageHead" id="profilTemplateMoreHeadId"/>
+    </h:head>
+
+    <h:body>
+        <ui:insert name="moreStyles" id="profilTemplateMoreHeadId">
+        </ui:insert>
+        <center>
+
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr class="topMenu">
+                    <td class="left">
+                        <ui:insert name="userFrame" id="userFrameId">
+                            <span id="masterTmplProfilUtilisateurId">
+                                <ui:include
+                                    src="/resources/components/include/template/userAccountProfil.xhtml">
+                                </ui:include>
+                            </span>
+                        </ui:insert>
+                    </td>
+                    <td class="center">
+                        <ui:insert name="moduleAndNavFrame" />
+                    </td>
+                </tr>
+            </table>
+            <div class="menuAndContent">
+                <table>
+                    <tr>
+                        <td class="menuLeft">
+                            <ui:insert name="navigationContainer"/>
+                        </td>
+
+                        <td>
+                            <div class="contentCaption">
+                                <ui:insert name="contentCaption"  id="profilTemplateContentCaptionId"/>
+                            </div>
+                            <div class="content">
+                                <!--<misc:status />-->
+
+                                <ui:insert name="content" id="profilTemplateContentId">
+                                    <center>
+                                        <p><br/></p>
+                                        <h:panelGrid columns="2">
+                                            <h:panelGrid columns="1" columnClasses="center">
+                                                <h:graphicImage library="images" name="misc/okapiStudent.gif" alt="*"/>
+                                            </h:panelGrid>
+                                            <h:panelGrid columns="2" style="text-align: left;">
+                                                <h:graphicImage library="images" name="misc/logoUAC.png" title="www.uac.bj" alt="*"/>
+                                                <h:panelGrid columns="1">
+                                                    <h:outputLink value="http://ericattou.uac.bj">
+                                                        contact@itdeal.com IT Deal All Rights Reserved
+                                                    </h:outputLink>
+                                                    <f:verbatim>
+                                                        IT Deal<br/>
+                                                       Our solutions, a new and Cost Effective deal for your IT System<br/>
+                                                    </f:verbatim>
+                                                </h:panelGrid>
+                                            </h:panelGrid>
+                                        </h:panelGrid>
+                                        <h:panelGrid columns="1" style="text-align: center; font-size: 8pt; font-style: italic;">
+                                            <h:outputText value="Health Plus version 1.0"/>
+                                            <h:outputText value="(c) Eric ATTOU"/>
+                                            <h:outputLink
+                                                value="mailto:ricoattou@yahoo.fr"
+                                                title="ricoattou@yahoo.fr">
+                                                <h:outputText value="ricoattou@yahoo.fr"/>
+                                            </h:outputLink>
+                                        </h:panelGrid>
+                                        <p></p>
+                                    </center>
+                                </ui:insert>
+                            </div>
+                        </td>
+
+                        <td valign="top">
+                            <ui:insert name="msg" id="msgAreaId">
+                                <p></p><br/>
+                                <p></p>
+                                <p:growl id="msg" showDetail="true" sticky="true"/>
+                            </ui:insert>
+                        </td>
+
+                    </tr>
+                </table>
+            </div><!-- end middle-->
+            <div class="footerClass">
+                <ui:insert name="footer" id="profilTemplateFooterId">
+                    <center>
+                        <p:spacer height="25"/>
+                        <p:separator/>
+                        <span id="masterTmplFooterId">
+                            <ui:include
+                                src="/resources/components/include/template/footer.xhtml">
+                            </ui:include>
+                        </span>
+                    </center>
+                </ui:insert>
+            </div>
+
+        </center>
+        <ds:windowId/>
+
+
+
+
+        <!--        <div id="top" class="top">
+                    <ui:insert name="top">Top</ui:insert>
+                </div>
+        
+                <div id="content" class="center_content">
+                    <ui:insert name="content">Content</ui:insert>
+                </div>-->
+
+    </h:body>
+</f:view>
+</html>

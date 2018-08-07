@@ -1,0 +1,132 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 11 août 2016, 11:48:11
+    Author     : kiki
+*/
+
+.mega_menu_title img{
+width:100%;
+}
+/*
+.yui-skin-sam .yuimenu .bd {
+    background-color: #000000;
+    background: url(../../../resources/images/prime/menu_body.gif) repeat-y;
+}
+
+.yui-skin-sam .yuimenuitem {
+    border: 0;
+}
+
+.yui-skin-sam .yuimenuitemlabel, .yui-skin-sam .yuimenuitemlabel:visited {
+    color: #FFFFFF;
+}
+
+.yui-skin-sam .yuimenuitemlabel {
+    cursor:pointer;
+}
+
+.yui-skin-sam .yuimenuitemlabel-selected, .yui-skin-sam .yuimenuitem-selected {
+    background-color: #FF9900;
+    cursor:pointer;
+    color:#000000;
+}
+
+.yui-skin-sam .yuimenu h6 {
+    color: #FF9900;
+    font-size: 12px;
+}
+*/
+
+.ui-expanded-row-content {
+    background-color: #6d5434;
+    color: yellow;
+    border-color: red;
+}
+
+.ui-panelgrid tr, .ui-panelgrid td {
+    border:0 !important;
+    background-color: inherit;
+    color: inherit;
+}
+
+.ui-picklist-control {
+    cursor: pointer;
+}
+
+.ui-picklist-source, .ui-picklist-target {
+    width: auto !important;
+    height: 650px;
+}
+
+.ui-picklist .ui-picklist-caption {
+    text-align: center;
+    padding:4px 10px 4px 10px;
+    border-bottom:0px none;
+}
+
+/*
+.ui-datatable table {
+    border-collapse:collapse;
+    width:100%;
+}
+
+.ui-datatable .ui-datatable-header,
+.ui-datatable .ui-datatable-footer {
+    background-color: #f8e28c;
+    color: black;
+    text-align:center;
+    padding:0px 0px 0px 0px;
+}
+
+.ui-datatable .ui-datatable-header {
+    border-bottom: 0px none;
+}
+
+.ui-datatable .ui-datatable-footer {
+    border-top: 0px none;
+}
+
+.ui-datatable th {
+    text-align:center;
+    white-space:nowrap;
+    padding:4px 10px 4px 10px;
+    color: maroon;
+    font-size: 12pt;
+    font-weight: bold;
+}
+
+.ui-datatable .ui-datatable-data td {
+    border-bottom-color:inherit;
+    border-bottom-style:solid;
+    border-bottom-width:1px;
+    border-right-color:inherit;
+    border-right-style:solid;
+    border-right-width:1px;
+    padding: 4px 10px 4px 10px;
+}
+*/
+
+.ui-menu {
+    border: 0;min-width: 250px;
+}
+
+.ui-menu .ui-menu-parent .ui-menu-child {
+    width: 250px;
+}
+
+/*.ui-datalist-data {
+    border: 0px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-right-width: 1px;
+}*/
+
+/*.ui-layout-west {
+    background-color: #272b3b;
+    color: #d2d6db;
+}*/

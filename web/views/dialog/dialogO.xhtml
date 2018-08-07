@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html [
+    <!ENTITY copy "&#169;">
+    <!ENTITY acirc "&#226;">
+    <!ENTITY acute "&#180;">
+    <!ENTITY agrave "&#224;">
+    <!ENTITY ccedila "&#231;">
+    <!ENTITY eacute "&#233;">
+    <!ENTITY ecirc "&#234;">
+    <!ENTITY egrave "&#232;">
+    <!ENTITY euml "&#235;">
+    <!ENTITY icirc "&#238;">
+    <!ENTITY nbsp "&#160;">
+    <!ENTITY oelig "&#339;">
+    <!ENTITY ocirc "&#244;">
+    <!ENTITY sbquo "&#8218;">
+    <!ENTITY ucirc "&#251;">
+    <!ENTITY ugrave "&#249;">
+    ]>
+    <html xmlns="http://www.w3.org/1999/html"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:p="http://primefaces.org/ui"
+          xmlns:c="http://java.sun.com/jstl/core"
+          xmlns:ui="http//:java.sun.com/jsf/facelets"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:nav="http://java.sun.com/composite/nav">
+        
+        <f:metadata>
+            <f:viewParam id="component" name="component" value="#{dialogBean.component}" required="#{true}"/>
+            <f:viewParam id="op-code" name="opCode" value="#{dialogBean.opCode}"/>
+            <f:viewParam id="param-header" name="header" value="#{dialogBean.header}" />
+        </f:metadata>
+        
+        <f:view contentType="text/html">
+            <h:head>
+                <style type="text/css" >
+                    .ui-widget{
+                        font-size: 90%;
+                    }
+                </style>
+                <title>#{dialogBean.header}</title>
+            </h:head>
+            <h:body>
+                <p:importConstants type="net.sptic.comptainscription.model.bean.Constants" var="PFconstants"/>
+<!--                <c:choose>
+                    <c:when test="#{dialogBean.callerBean.alive}">-->
+                        <p:messages id="msg" showDetail="true" showSummary="false" closable="true" redisplay="false" />
+                        <h:form id="dlg-form" prependId="false" >
+                            <c:choose>
+                                <c:when test="#{dialogBean.opCode eq constant.opcodeDeleteMulti}">
+                                    <p:dataTable stickyHeader="true"
+                                                 id="id-dataTable"
+                                                 lazy="false"
+                                                 emptyMessage="#{bundle.resultat_vide}"
+                                                 var="fiche"
+                                                 value="#{dialogBean.callerBean.selections}"
+                                                 paginator="true"
+                                                 paginatorAlwaysVisible="false"
+                                                 rows="20"
+                                                 rowKey="#{fiche.id}"
+                                                 disabledSelection="true" >
+                                        <f:facet name="footer">
+                                            <h:panelGroup styleClass="center">
+                                                <p/>
+                                                <p:commandButton
+                                                    id="delete-multi"
+                                                    value="#{bundle.bouton_supprimer}" actionListener="#{dialogBean.deleteAndCloseDialog}"
+                                                    update=":msg" >
+                                                    <p:confirm header="#{bundle.entete_supprimer_selection}" message="#{bundle.prompt_supprimer}" icon="ui-icon-alert" />
+                                                </p:commandButton>
+                                            </h:panelGroup>
+                                        </f:facet>
+                                        <ui:include
+                                            src="#{dialogBean.component}">
+                                            <ui:param name="var" value="#{fiche}"/>
+                                            <ui:param name="accessWrite" value="#{profileBean.gestionnaire(dialogBean.objectClassName)}"/>
+                                            <ui:param name="managedBean" value="#{dialogBean.callerBean}"/>
+                                        </ui:include>
+                                    </p:dataTable>
+                                </c:when>
+                                <c:when test="#{dialogBean.opCode eq constant.opcodeDeleteSingle}">
+                                    <ui:include
+                                        src="#{dialogBean.component}">
+                                        <ui:param name="var" value="#{dialogBean.fiche}"/>
+                                        <ui:param name="accessWrite" value="#{profileBean.gestionnaire(dialogBean.objectClassName)}" />
+                                    </ui:include>
+                                    <p/>
+                                    <p:commandButton
+                                        id="delete-single"
+                                        value="#{bundle.bouton_supprimer}" actionListener="#{dialogBean.deleteAndCloseDialog}"
+                                        update=":msg" >
+                                        <p:confirm header="#{bundle.entete_supprimer_selection}" message="#{bundle.prompt_supprimer}" icon="ui-icon-alert" />
+                                    </p:commandButton>
+                                </c:when>
+                                <c:when test="#{dialogBean.opCode eq constant.opcodeDisplay}">
+                                    <ui:include
+                                        src="#{dialogBean.component}">
+                                        <ui:param name="var" value="#{dialogBean.fiche}"/>
+                                        <ui:param name="accessWrite" value="#{false}"/>
+                                    </ui:include>
+                                    <p/>
+                                </c:when>
+                                <c:when test="#{dialogBean.opCode eq constant.opcodeEdit}">
+                                    <center>
+                                        <ui:include
+                                            src="#{constant.includeFileLocation}">
+                                            <ui:param name="accessWrite" value="#{profileBean.editeur(dialogBean.objectClassName)}" />
+                                            <ui:param name="component" value="#{dialogBean.component}" />
+                                            <ui:param name="id" value="dialog-#{constant.opcodeNew}" />
+                                            <ui:param name="managedBean" value="#{dialogBean.callerBean}"/>
+                                            <ui:param name="var" value="#{dialogBean.fiche}"/>
+                                        </ui:include>
+                                        <p/>
+                                        <h:panelGroup styleClass="center">
+                                            <p:commandButton
+                                                id="save-btn"
+                                                styleClass="center"
+                                                value="#{bundle.bouton_sauvegarder}"
+                                                actionListener="#{dialogBean.saveAndCloseDialog}"
+                                                update=":msg">
+                                            </p:commandButton>
+                                        </h:panelGroup>
+                                    </center>
+                                </c:when>
+                                <c:when test="#{dialogBean.opCode eq constant.opcodeNew}">
+                                    <center>
+                                        <ui:include
+                                            src="#{constant.includeFileLocation}">
+                                            <ui:param name="accessWrite" value="#{profileBean.contributeur(dialogBean.objectClassName)}" />
+                                            <ui:param name="component" value="#{dialogBean.component}" />
+                                            <ui:param name="id" value="dialog-#{constant.opcodeNew}" />
+                                            <ui:param name="managedBean" value="#{dialogBean.callerBean}"/>
+                                            <ui:param name="var" value="#{dialogBean.fiche}"/>
+                                        </ui:include>
+                                        <p/>
+                                        <h:panelGroup styleClass="center">
+                                            <p:commandButton
+                                                id="save-btn"
+                                                styleClass="center"
+                                                value="#{bundle.bouton_sauvegarder}"
+                                                actionListener="#{dialogBean.saveAndCloseDialog}"
+                                                update=":msg">
+                                            </p:commandButton>
+                                        </h:panelGroup>
+                                    </center>
+                                </c:when>
+                            </c:choose>
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                <center>
+                                    <p:commandButton value="#{bundle.non}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                    <p:commandButton value="#{bundle.oui}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                </center>
+                            </p:confirmDialog>
+                        </h:form>
+                        
+<!--                    </c:when>
+                </c:choose>-->
+            </h:body>
+        </f:view>
+        
+        
+    </html>

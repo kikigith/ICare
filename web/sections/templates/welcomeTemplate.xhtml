@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <f:view contentType="text/html">
+
+        <h:head>
+            <title>ICare v1.0</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+            <h:outputStylesheet library="styles" name="css/default.css" />
+            <h:outputStylesheet library="styles" name="css/cssLayout.css" />
+
+
+        </h:head>
+        <h:body>
+            <div id="top">
+
+                <div id="top_logo">zone logo</div>
+                <div id="top_menu"> 
+                    <center>
+                        <h3>Plateforme e-Santé</h3>
+                    </center>
+                </div>
+                <div id="top_user">
+                    <ui:insert  name="top_user">formulaire connexion</ui:insert>
+                </div>
+            </div>
+            <p:spacer width="25" />
+            <div id="center">
+                <div id="center_menu">
+                    <ui:insert name="center_menu">
+                        <b><h3>Fonctionnalités</h3></b>
+                        <ul>
+                                <li>Gestion des prises de rendez-vous</li><br/>
+                                <li>Gestion des consultations et hospitalisation</li><br/>
+                                <li>Gestion des analyses et examens médicaux</li><br/>
+                                <li>Gestion de la programmation des équipes médicales</li><br/>
+                                <li>Gestion de pharamacie</li><br/>
+                                <li>Communications temps réels avec les organismes d'assurance</li><br/>
+                                <li>Edition de divers états statistiques</li><br/>
+                                <li>Gestion des la facturation des prestations </li>
+                            </ul>
+                    </ui:insert>
+                </div>
+                <div>
+                    <!--                    <div id="right">
+                                            <ui:insert name="right">Right</ui:insert>class="center_content"
+                                        </div>-->
+                    <div id="center_content" class="footerClass" >
+                        <p:messages id="msg"
+                                    closable="true"
+                                    showDetail="true"
+                                    autoUpdate="true"
+                                    style="color: red;background-color: #edffbd;"/>
+                        <ui:insert name="center_content">
+                            <ol>
+                                <li>Gestion des prises de rendez-vous</li><br/>
+                                <li>Gestion des consultations et hospitalisation</li><br/>
+                                <li>Gestion des analyses et examens médicaux</li><br/>
+                                <li>Gestion de la programmation des équipes médicales</li><br/>
+                                <li>Gestion de pharamacie</li><br/>
+                                <li>Communications temps réels avec les organismes d'assurance</li><br/>
+                                <li>Edition de divers états statistiques</li><br/>
+                                <li>Gestion des la facturation des prestations </li>
+                            </ol>
+                        </ui:insert>
+                    </div>
+                </div>
+            </div>
+            <div id="footer">
+                <ui:insert name="bottom">
+                    <center>
+                        <p:spacer height="25" />
+                        <p:separator />
+                        <span id="masterTmplFooterId">
+                            <ui:include
+                                src="/resources/components/include/template/footer.xhtml">
+                            </ui:include>
+                        </span>
+                    </center>
+                </ui:insert>
+            </div>
+        </h:body>
+    </f:view>
+</html>

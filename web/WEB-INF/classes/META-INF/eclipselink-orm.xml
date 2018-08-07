@@ -1,0 +1,906 @@
+
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+
+
+<entity-mappings
+    xmlns="http://java.sun.com/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
+    version="2.0">
+    
+    <persistence-unit-metadata>
+        
+        <persistence-unit-defaults>
+            <schema>icare</schema>
+            <access>FIELD</access>
+        </persistence-unit-defaults>
+    </persistence-unit-metadata>
+    
+    <mapped-superclass class="net.ericattou.icare.model.dependencies.BaseBeanEntite" >
+        
+        <entity-listeners class="net.ericattou.icare.listeners.Callback">
+            <pre-persist method="prePersistAction"/>
+            <post-persist method="postPersistAction"/>
+            <pre-update method="preUpdateAction"/>
+            <post-persist method="postUpdateAction"/>
+            <pre-remove method="preRemoveAction"/>
+            <post-remove method="postRemoveAction"/>
+            <post-load method="postLoadAction"/>
+        </entity-listeners>
+        
+        <attributes>
+            <id name="id">
+                <column name="id" length="32" nullable="false" />
+                <generated-value generator="generator"/>
+                
+            </id>
+            <basic name="encodeur">
+                <column name="encodeur" length="80"/>
+            </basic>
+            <basic name="dateModif">
+                <column name="date_modif" nullable="false"/>
+                <temporal>DATE</temporal>
+            </basic>
+            <version name="version">
+                <column name="version" column-definition="long" nullable="false"/>
+            </version>
+            
+        </attributes>
+    </mapped-superclass>
+    
+    <!--1:    PersonneEntite-->
+    <entity class="net.ericattou.icare.model.entities.PersonneEntite">
+        <inheritance strategy="TABLE_PER_CLASS" />
+        <table name="ic_personne"/>
+        
+        <attribute-override name="id">
+            <column name="id_pers" length="32"/>
+        </attribute-override>
+        
+        <attributes>
+            <basic name="nom" >
+                <column name="nom" length="80" nullable="false"/>  
+            </basic>
+            <basic name="prenoms" >
+                <column name="prenoms" length="100" nullable="false"/>  
+            </basic>
+            <basic name="sexe" >
+                <column name="sexe" length="1" nullable="false"/>  
+            </basic>
+            <basic name="photo" >
+                <column name="photo" length="30" />  
+            </basic>
+            <basic name="dateNaissance" >
+                <column name="date_naissance" length="12" nullable="false"/> 
+                <temporal>DATE</temporal> 
+            </basic>
+            <basic name="lieuNaissance" >
+                <column name="lieu_naissance" length="40" nullable="false"/>  
+            </basic>
+            <basic name="departementOrigine" >
+                <column name="departement_origine" length="30" />  
+            </basic>
+            <basic name="villeOrigine" >
+                <column name="ville_origine" length="30" />  
+            </basic>
+            <basic name="telephone" >
+                <column name="telephone" length="30" />  
+            </basic>
+            <basic name="email" >
+                <column name="email" length="30" />  
+            </basic>
+            <basic name="adresse" >
+                <column name="adresse" length="32" />  
+            </basic>
+<!--            <many-to-one name="adresse" fetch="EAGER">
+                <join-column name="adresse" referenced-column-name="code_adr" nullable="false"/> 
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </many-to-one>-->
+            
+<!--            <one-to-one name="patient">   
+            </one-to-one>-->
+<!--            <one-to-one name="praticien">
+                
+            </one-to-one>-->
+        </attributes>   
+                  
+    </entity>
+    
+    
+    <!--2: AdresseEntite-->
+<!--    <entity class="net.ericattou.icare.model.entities.AdresseEntite">
+        
+        <table name="ic_adresse"/>
+        
+        <attribute-override name="id">
+            <column name="code_adr" length="32"/>
+        </attribute-override>
+        
+        <attributes>  
+            <basic name="ville">
+                <column name="ville" /> 
+            </basic>  
+            <one-to-many name="personnes" mapped-by="adresse" fetch="LAZY">
+                <cascade>
+                    <cascade-all />
+                </cascade>
+            </one-to-many>
+        </attributes>
+        
+    </entity>-->
+    
+    <!--3: PatientEntite-->
+    <entity class="net.ericattou.icare.model.entities.PatientEntite">
+        
+        <table name="ic_patient"/>
+        
+        <attribute-override name="id">
+            <column name="num_pat" length="32"/>
+        </attribute-override>
+        
+        <attributes>
+            <!--            <basic name="libelle" >
+                <column name="libelle" length="80" nullable="false"/>  
+            </basic>-->
+            
+            
+            
+            <many-to-one name="categorie" fetch="EAGER">
+                <join-column name="categorie" referenced-column-name="code_cat_pat" nullable="false"/>        
+            </many-to-one>
+            <many-to-one name="assurance" fetch="EAGER">
+                <join-column name="assurance" referenced-column-name="num_assurance" nullable="true"/>        
+            </many-to-one>
+            <!--            <one-to-one name="personne">   
+            </one-to-one>-->
+            
+            <one-to-many name="rdvDuPatient" mapped-by="patient" fetch="LAZY">
+                <cascade>
+                    <cascade-all/>
+                </cascade>  
+            </one-to-many>
+            <!--<many-to-one>assurance</many-to-one>-->
+        </attributes>   
+                  
+    </entity>
+    
+    <!--4: PraticieEntite-->
+    <entity class="net.ericattou.icare.model.entities.PraticienEntite">
+        
+        <table name="ic_praticien"/>
+        
+        <attribute-override name="id">
+            <column name="num_prat" length="32"/>
+        </attribute-override>
+        
+        <attributes>      
+            
+            <many-to-one name="categoriePraticien" fetch="EAGER">
+                <join-column name="categorie" referenced-column-name="codeCatPH" nullable="false"/>        
+            </many-to-one>
+            <many-to-one name="specialitePraticien" fetch="EAGER">
+                <join-column name="specialite" referenced-column-name="code_spe" nullable="false"/>
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </many-to-one>
+            
+            <one-to-many name="consultations" mapped-by="praticien">
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-many>
+            
+            <!--            <one-to-one name="personne">   
+            </one-to-one>-->
+            <one-to-many name="consultations">
+                
+            </one-to-many>
+        </attributes>   
+                  
+    </entity>
+    
+    <!--5:    ConsultationEntite-->
+    <entity class="net.ericattou.icare.model.entities.ConsultationEntite">
+        
+        <table name="ic_consultation"/>
+        
+        <attribute-override name="id">
+            <column name="num_cons" length="32"/>
+        </attribute-override>
+        
+        <attributes>      
+            
+            <basic name="dateConsultation">
+                <column name="date_consultation" nullable="false"/>
+                <temporal>DATE</temporal>
+            </basic>
+            <basic name="pouls">
+                <column name="pouls" />
+            </basic>
+            <basic name="poids">
+                <column name="poids" />
+            </basic>
+            <basic name="temperature">
+                <column name="temperature" />
+            </basic>
+            <basic name="taille">
+                <column name="taille" />
+            </basic>
+            <basic name="observations">
+                <column name="observations" />
+            </basic>
+            
+<!--            <many-to-one name="patient" fetch="EAGER">
+                <join-column name="patient" referenced-column-name="num_pat" nullable="false"/> 
+                <cascade>
+                    <cascade-all/>
+                </cascade>       
+            </many-to-one>-->
+            <many-to-one name="praticien" fetch="EAGER">
+                <join-column name="praticien" referenced-column-name="num_prat" nullable="false"/> 
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </many-to-one>
+            
+            <one-to-many name="lesDiagnostics" mapped-by="consultation" fetch="LAZY">
+                <cascade>
+                    <cascade-all/>
+                </cascade>     
+            </one-to-many>
+            
+            <one-to-many name="lesOrdonnances" mapped-by="consultation" fetch="LAZY">
+                <cascade/>        
+            </one-to-many>
+            <one-to-many name="lesExamens" mapped-by="consultation" fetch="LAZY">
+                <cascade/>        
+            </one-to-many>
+            <one-to-one name="rdv" mapped-by="consultation" fetch="EAGER">
+                <cascade>
+                    <cascade-persist />
+                </cascade>
+            </one-to-one>
+        </attributes>   
+                  
+    </entity>
+    
+    
+    <!--6:    Diagnostic Pathologique-->
+    <entity class="net.ericattou.icare.model.entities.DiagnosticPathologiqueEntite">
+        <table name="ic_diagnostic_pathologique"/>
+        
+        <attribute-override name="id">
+            <column name="code_diagnostic_pathologique" length="32"/>
+        </attribute-override>
+        
+        <attributes>
+            <basic name="description">
+                <column name="description" length="100"/>
+            </basic>
+            <basic name="observation">
+                <column name="observation" length="100"/>
+            </basic>
+            <!--            <one-to-many name="lignesDiagnostic" mapped-by="diagnostic">
+                <cascade>
+                    <cascade-all/>
+                </cascade>           
+            </one-to-many>-->
+            
+            
+        </attributes>
+    </entity>
+    
+    <!--7: PoserDiagnostic:lignes diagnostic-->
+    <entity class="net.ericattou.icare.model.entities.PoserDiagnosticEntite">
+        <table name="ic_ligne_diagnostic">
+            <unique-constraint>
+                <column-name>consultation</column-name>
+                <column-name>diagnostic</column-name>
+            </unique-constraint>
+        </table>
+        
+        <attributes>
+            <basic name="traitsParticuliers">
+                <column name="traits_particuliers" />
+            </basic>
+            <basic name="etat">
+                <column name="etat" />
+            </basic>  
+        </attributes>
+         
+        <many-to-one name="consultation" fetch="EAGER">
+            <join-column-name name="consultation" referenced-column-name="num_cons"/>
+            <cascade>
+                <cascade-all/>
+            </cascade>
+        </many-to-one>
+        <many-to-one name="diagnostic" fetch="EAGER">
+            <join-column-name name="diagnostic" referenced-column-name="code_diag"/>
+            <cascade>
+                <cascade-all/>
+            </cascade>
+        </many-to-one>
+        
+    </entity>
+    
+    <!--8:    Prestation-->
+    <entity class="net.ericattou.icare.model.entities.PrestationMedicaleEntite">
+        <table name="ic_prestation_medicale"/>
+        
+        <attribute-override name="id">
+            <column name="num_prest" length="32"/>
+        </attribute-override>
+        
+        <attributes>
+            <basic name="libelle">
+                <column name="libelle" length="100"/>
+            </basic>
+            <basic name="datePrestation">
+                <column name="date_prestation"/>
+                <temporal>DATE</temporal>
+            </basic>
+            
+<!--            <many-to-one name="consultation" fetch="EAGER">
+                <join-column-name name="consultation" referenced-column-name="num_cons"/>
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </many-to-one>-->
+            <many-to-one name="nature" fetch="EAGER">
+                <join-column-name name="nature" referenced-column-name="code_nat"/>
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </many-to-one>
+            <one-to-many name="listeReglements" mapped-by="prestation" fetch="LAZY">              
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-many>
+        </attributes>
+    </entity> 
+
+    <!--9:    Reglement-->
+    <entity class="net.ericattou.icare.model.entities.ReglementPrestationEntite">
+        <table name="ic_reglement"/>
+        
+        <attribute-override name="id">
+            <column name="num_reglement" length="32"/>
+        </attribute-override>
+        
+        <attributes>
+            
+            <basic name="dateReglement">
+                <column name="date_reglement"/>
+                <temporal>DATE</temporal>
+            </basic>
+            
+            
+            <many-to-one name="modeReglement" fetch="EAGER">
+                <join-column-name name="mode_reglement" referenced-column-name="mode_reglement"/>
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </many-to-one>
+            <many-to-one name="prestation" fetch="EAGER">
+                <join-column-name name="reglement" referenced-column-name="mode_reglement"/>
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </many-to-one>
+        </attributes>
+    </entity>
+    
+    <!--10:    ModeReglement-->
+    <entity class="net.ericattou.icare.model.entities.ModeReglementEntite">
+        <table name="ic_mode_reglement"/>
+        
+        <attribute-override name="id">
+            <column name="code_mode" length="32"/>
+        </attribute-override>
+        
+        <attributes>
+            
+            <basic name="libelle">
+                <column name="libelle"/>
+            </basic>
+            
+            <one-to-many name="listeReglements" mapped-by="modeReglement">
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+                
+            </one-to-many>
+            
+            <!--            <many-to-one name="listeReglement" fetch="EAGER">
+                <join-column-name name="reglement" referenced-column-name="code_mode"/>
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </many-to-one>-->
+            
+        </attributes>
+    </entity>    
+       
+    <!--11:    CategoriePractien-->
+    <entity class="net.ericattou.icare.model.entities.CategoriePraticienEntite">
+        <table name="ic_categorie_praticien"/>
+        
+        <attribute-override name="id">
+            <column name="code_cat" length="32"/>
+        </attribute-override>
+        
+        <attributes>
+            
+            <basic name="libelle">
+                <column name="libelle"/>
+            </basic>
+            
+            <one-to-many name="lesPraticiens" mapped-by="categoriePraticien">              
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-many>
+           
+            
+        </attributes>
+    </entity>    
+        
+    <!--12:    FraisAnnuelPrestation-->
+    <entity class="net.ericattou.icare.model.entities.FraisAnnuelPrestationEntite">
+        <table name="ic_frais_annuel_prestation">
+            <unique-constraint>
+                <column-name>annee_medicale</column-name>
+                <column-name>categorie_patient</column-name>
+                <column-name>nature_prestation</column-name>
+            </unique-constraint>
+        </table>
+        
+        
+        
+        <attributes>
+            
+            <basic name="montant">
+                <column name="montant"/>
+            </basic>
+            <many-to-one name="anneeMedicale" fetch="EAGER">
+                <join-column-name name="annee_medicale" referenced-column-name="code_annee"/>
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </many-to-one>
+            <many-to-one name="categoriePatient" fetch="EAGER">
+                <join-column-name name="categorie_patient" referenced-column-name="code_cat"/>
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </many-to-one>
+            <many-to-one name="naturePrestation" fetch="EAGER">
+                <join-column-name name="nature_prestation" referenced-column-name="code_nat"/>
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </many-to-one>
+        </attributes>
+    </entity>    
+    
+      <!--13:    FraisAnnuelSalle-->
+    <entity class="net.ericattou.icare.model.entities.FraisAnnuelSalleEntite">
+        <table name="ic_frais_annuel_salle">
+            <unique-constraint>
+                <column-name>salle_hospitalisation</column-name>
+                <column-name>annee_medicale</column-name>
+            </unique-constraint>
+        </table>
+        
+        
+        
+        <attributes>
+            
+            <basic name="montant">
+                <column name="montant"/>
+            </basic>
+            <many-to-one name="anneeMedicale" fetch="EAGER">
+                <join-column-name name="annee_medicale" referenced-column-name="code_annee"/>
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </many-to-one>
+            <many-to-one name="salleHospitalisation" fetch="EAGER">
+                <join-column-name name="salle_hospitalisation" referenced-column-name="numero_salle"/>
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </many-to-one>
+            
+        </attributes>
+    </entity> 
+    
+    <!--14:    AnneeMedicale-->
+    <entity class="net.ericattou.icare.model.entities.AnneeMedicaleEntite">
+        <table name="ic_annee_medical"/>
+        
+        <attribute-override name="id">
+            <column name="code_annee" length="8"/>
+        </attribute-override>
+        
+        <attributes>
+            <basic name="dateDebut" >
+                <column name="date_debut" />
+                <temporal>DATE</temporal>
+            </basic>
+            <basic name="dateFin" >
+                <column name="date_fin" />
+                <temporal>DATE</temporal>
+            </basic>
+            
+            <one-to-many name="lesFrais" mapped-by="anneeMedicale">
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-many>
+        </attributes>
+    </entity>
+    
+    <!--15:    AssuranceMedicale-->
+    <entity class="net.ericattou.icare.model.entities.AssuranceMedicaleEntite">
+        <table name="ic_assurance_medical"/>
+        
+        <attribute-override name="id">
+            <column name="num_assurance" length="8"/>
+        </attribute-override>
+        
+        <attributes>
+            <basic name="dateDelivrance" >
+                <column name="date_delivrance" />
+                <temporal>DATE</temporal>
+            </basic>
+            <basic name="dateExpiration" >
+                <column name="date_expiration" />
+                <temporal>DATE</temporal>
+            </basic>
+            <basic name="tauxVitamine" >
+                <column name="taux_vitamine" /> 
+            </basic>
+            
+            <one-to-many name="lesPatientsAssures" mapped-by="assurance">
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-many>
+            <many-to-one name="assureur" optional="true" fetch="EAGER">
+                <join-column name="assureur" referenced-column-name="code_assureur"/>
+            </many-to-one>
+        </attributes>
+    </entity> 
+    
+    <!--16:    ExamenMedicale-->
+    <entity class="net.ericattou.icare.model.entities.ExamenMedicalEntite">
+        <table name="ic_examen_medical" />
+        <attribute-override name="id">
+            <column name="code" nullable="false" length="8"/>
+        </attribute-override>
+        
+        <attributes>
+            
+            <basic name="libelle">
+                <column name="libelle"/>
+            </basic>
+            <one-to-many name="lesResultats" mapped-by="examen" fetch="LAZY">
+                <cascade />
+            </one-to-many>
+        </attributes>
+    </entity> 
+
+<!--17:    ResultatExamenMedicale-->
+    <entity class="net.ericattou.icare.model.entities.ResultatExamenEntite">
+        <table name="ic_resultat_examen_medical" />
+        
+        
+        <attributes>
+            <basic name="datePrescription">
+                <column name="date_prescription"/>
+                <temporal>DATE</temporal>
+            </basic>
+            <basic name="prescripteur">
+                <column name="prescripteur"/>
+            </basic>
+            <basic name="dateRealisation">
+                <column name="date_realisation"/>
+                <temporal>DATE</temporal>
+            </basic>
+            <basic name="realisateur">
+                <column name="realisateur"/>
+            </basic>
+            <basic name="resultat">
+                <column name="resultat"/>
+            </basic>
+            <basic name="observation">
+                <column name="observation"/>
+            </basic>
+            
+            <many-to-one name="consultation" fetch="EAGER">
+                <join-column name="consultation" referenced-column-name="code"/>
+            </many-to-one>
+        </attributes>
+    </entity> 
+    
+    <!--17:    OrdonnanceMedicale-->
+    <entity class="net.ericattou.icare.model.entities.OrdonnanceMedicaleEntite">
+        <table name="ic_ordonnance_medicale" />
+        <attribute-override name="id">
+            <column name="num_ord" nullable="false" length="8"/>
+        </attribute-override>
+        
+        <attributes>
+            <basic name="dateOrdonnance">
+                <column name="date_ordonnance" nullable="false"/>
+                <temporal>DATE</temporal>
+            </basic>
+            
+            
+            <many-to-one name="consultation" fetch="EAGER">
+                <join-column name="consultation" referenced-column-name="num_cons"/>
+            </many-to-one>
+            <one-to-many name="ligneOrdonnance" mapped-by="ordonnance" fetch="EAGER">
+                <cascade>
+                    <cascade-all /> 
+                </cascade>
+            </one-to-many>
+        </attributes>
+    </entity>  
+
+    <!--18:    LigneOrdonnance-->
+    <entity class="net.ericattou.icare.model.entities.LigneOrdonnanceEntite">
+        <table name="ic_ligne_ordonnance_medicale" />
+<!--        <attribute-override name="id">
+            <column name="code" nullable="false" length="8"/>
+        </attribute-override>-->
+        
+        <attributes>
+            <basic name="posologie">
+                <column name="posologie"/>
+                
+            </basic>
+            <basic name="commentaire">
+                <column name="commentaire"/>
+            </basic>
+           
+            <many-to-one name="ordonnance" fetch="EAGER">
+                <join-column name="ordonnance" referenced-column-name="num_ord"/>
+            </many-to-one>
+            <many-to-one name="produit" fetch="EAGER">
+                <join-column name="consultation" referenced-column-name="code"/>
+            </many-to-one>
+        </attributes>
+    </entity>   
+     
+    <!--19:    Hospitalisation-->
+    <entity class="net.ericattou.icare.model.entities.HospitalisationEntite">
+        <table name="ic_hospitalisation" />
+    </entity> 
+    
+    <!--20:    SalleHospitalisation-->
+    <entity class="net.ericattou.icare.model.entities.SalleHospitalisationEntite">
+        <table name="ic_salle_hospitalisation" />
+    </entity> 
+
+    <!--21:    Pathologie-->
+    <entity class="net.ericattou.icare.model.entities.PathologieEntite">
+        <table name="ic_pathologie" />
+    </entity>
+    
+    <!--22:    SpecialiteMedicale-->
+    <entity class="net.ericattou.icare.model.entities.SpecialiteMedicaleEntite">
+        <table name="ic_specialite_medicale" />
+        <attribute-override name="id">
+            <column name="code" nullable="false" length="8"/>
+        </attribute-override>
+        
+        <attributes>
+            <basic name="libelle">
+                <column name="libelle"/>
+            </basic>
+            <!--            <many-to-one name="consultation" fetch="EAGER">
+                <join-column name="consultation" referenced-column-name="code"/>
+            </many-to-one>-->
+        </attributes>
+    </entity>
+    
+    <!--23:    MaterielMedical-->
+    <entity class="net.ericattou.icare.model.entities.MaterielMedicalEntite">
+        <table name="ic_materiel_medical" />
+        
+        
+    </entity>                                                                                                                                                                                                                                                                                                      
+    
+    
+    <!--24:    soinMedical-->
+    <entity class="net.ericattou.icare.model.entities.SoinMedicalEntite">
+        <table name="ic_soin_medical" />
+    </entity>                                                                                                                                                                                                                                                                                                      
+  
+    <!--25:    ClassePharmaceutique-->
+    <entity class="net.ericattou.icare.model.entities.ClassePharmaceutiqueEntite">
+        <table name="ic_classe_pharmaceutique" />
+        <attribute-override name="id">
+            <column name="code_classe_phar" nullable="false" length="8"/>
+        </attribute-override>
+        <attributes>
+            <basic name="libelle">
+                <column name="libelle"/>
+            </basic>
+            <one-to-many name="lesProduits" mapped-by="classe"  fetch="LAZY">
+                <cascade />
+            </one-to-many>
+        </attributes>
+    </entity>                                                                                                                                                                                                                                                                                                      
+   
+    <!--26:    ProduitPharmaceutique-->
+    <entity class="net.ericattou.icare.model.entities.ProduitPharmaceutiqueEntite">
+        <table name="ic_produit_pharmaceutique" />
+        
+        <attribute-override name="id">
+            <column name="code_prod" nullable="false" length="8"/>
+        </attribute-override>
+        <attributes>
+            <basic name="designation">
+                <column name="designation"/>
+            </basic>
+            <many-to-one name="classe" mapped-by="classe"  fetch="EAGER">
+                <join-column name="classe_pharmaceutique" referenced-column-name="code_classe_phar" />
+            </many-to-one>
+        </attributes>
+    </entity>                                                                                                                                                                                                                                                                                                      
+
+    <!--27:    RendezVousMedical-->
+    <entity class="net.ericattou.icare.model.entities.RendezVousMedicalEntite">
+        <table name="ic_rendez_vous" />
+         <attribute-override name="id">
+            <column name="num_rdv" nullable="false" length="8"/>
+        </attribute-override>
+        
+        <attributes>
+            <basic name="dateRdv">
+                <column name="date_rdv"/>
+                <temporal>DATE</temporal>
+            </basic>
+            <many-to-one name="patient" fetch="EAGER">
+                <join-column name="patient" referenced-column-name="num_pat"/>
+            </many-to-one>
+            <one-to-one name="consultation" >
+            </one-to-one>
+        </attributes>
+    </entity> 
+                                                                                                                                                                                                                                                                                                      
+    <!--28:    Rayon-->
+    <entity class="net.ericattou.icare.model.entities.RayonEntite">
+        <table name="ic_rayon" />
+    </entity> 
+                                                                                                                                                                                                                                                                                                         
+    <!--29:    Assureur-->
+    <entity class="net.ericattou.icare.model.entities.AssureurEntite">
+        <table name="ic_assureur" />
+        <attribute-override name="id">
+            <column name="code_assureur" nullable="false" length="8"/>
+        </attribute-override>
+        
+        <attributes>
+            <basic name="denomination">
+                <column name="denomination"/>
+                
+            </basic>
+            <one-to-many name="lesAssures" mapped-by="assureur" fetch="LAZY">
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-many>
+        </attributes>
+    </entity>                                                                                                                                                                                                                                                                                                      
+ 
+    <!--30:    NaturePrestation-->
+    <entity class="net.ericattou.icare.model.entities.NaturePrestationEntite">
+        <table name="ic_nature_prestation" />
+        <attribute-override name="id">
+            <column name="code_nat" nullable="false" length="8"/>
+        </attribute-override>
+        
+        <attributes>
+            <basic name="libelle">
+                <column name="libelle"/>
+                
+            </basic>
+            <one-to-many name="lesPrestations" mapped-by="nature" fetch="LAZY">
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-many>
+        </attributes>
+    </entity> 
+    
+     <!--31:    CategoriePatient-->
+    <entity class="net.ericattou.icare.model.entities.CategoriePatientEntite">
+        <table name="ic_categorie_patient" />
+        <attribute-override name="id">
+            <column name="code_cat_pat" nullable="false" length="8"/>
+        </attribute-override>
+        
+        <attributes>
+            <basic name="libelle">
+                <column name="libelle"/>
+                
+            </basic>
+            <one-to-many name="lesPatients" fetch="LAZY" mapped-by="categorie">
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-many>
+            
+        </attributes>
+    </entity>   
+    
+      <!-- 32- Class RoleEntite mapped with table ic_role-->
+    <entity class="net.ericattou.icare.model.entities.RoleEntite" access="FIELD">
+        <table name="ic_role" /> 
+        <attribute-override name="id">
+            <column name="code" nullable="false" length="32" /> 
+        </attribute-override>
+        <attributes>
+            <basic name="libelle">
+                <column name="libelle"  length="80" nullable="false"/>
+            </basic>
+            
+            <many-to-many name="utilisateurs" mapped-by="roles"/>
+        </attributes>
+    </entity>
+    
+    <!-- 18- Class UtilisateurEntite mapped with table ic_utilisateur-->
+    <entity class="net.ericattou.icare.model.entities.UtilisateurEntite" access="FIELD">
+        <table name="ic_utilisateur" />
+        <attribute-override name="id">
+            <column name="identifiant" nullable="false" length="40"/>
+        </attribute-override>
+        
+        <attributes>
+            <basic name="nomDeFamille">
+                <column name="nom_de_famille" length="60" />
+            </basic>
+            <basic name="prenom">
+                <column name="prenom" length="60" />
+            </basic>
+            <basic name="motDePasse">
+                <column name="mot_de_passe" length="64" />
+            </basic>
+            <basic name="email">
+                <column name="email" length="64" />
+            </basic>
+            <basic name="telephone">
+                <column name="telephone" length="15" />
+            </basic>
+            <basic name="dateCreation">
+                <column name="date_creation" nullable="false"/>
+                <temporal>DATE</temporal>
+            </basic>
+            <many-to-many name="roles" fetch="LAZY">
+                <join-table name="join_utilisateur2role">
+                    <join-column name="identifiant" referenced-column-name="identifiant" />
+                    <inverse-join-column name="groupe" referenced-column-name="code"/>
+                    <unique-constraint>
+                        <column-name>identifiant</column-name>
+                        <column-name>groupe</column-name>
+                    </unique-constraint>
+                </join-table>
+            </many-to-many>
+        </attributes>
+        
+    </entity> 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+</entity-mappings>

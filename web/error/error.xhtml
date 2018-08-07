@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html [
+    <!ENTITY copy "&#169;">
+    <!ENTITY acirc "&#226;">
+    <!ENTITY acute "&#180;">
+    <!ENTITY agrave "&#224;">
+    <!ENTITY ccedila "&#231;">
+    <!ENTITY eacute "&#233;">
+    <!ENTITY ecirc "&#234;">
+    <!ENTITY egrave "&#232;">
+    <!ENTITY euml "&#235;">
+    <!ENTITY icirc "&#238;">
+    <!ENTITY nbsp "&#160;">
+    <!ENTITY oelig "&#339;">
+    <!ENTITY ocirc "&#244;">
+    <!ENTITY sbquo "&#8218;">
+    <!ENTITY ucirc "&#251;">
+    <!ENTITY ugrave "&#249;">
+    ]>
+    <ui:composition
+        template="/sections/templates/homePageMasterTemplate.xhtml"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+        xmlns:of="http://omnifaces.org/functions"
+        xmlns:p="http://primefaces.org/ui"
+        >
+
+        <ui:define name="center_menu"/>
+
+        <ui:define name="center_content" id="id-content-template">
+            <ui:insert name="errorContent">
+                <h:outputText value="Une erreur est survenue !" styleClass="error h1" />
+                <p/><br/>
+
+                <h3>Date et heure</h3>
+                <br/>
+
+                <h3>Navigateur</h3>
+                #{header['user-agent']}"
+                <br/>
+
+                <h3>Type d'exception type</h3>
+                <!--<h:outputText value="#{requestScope['javax.servlet.error.exception_type']}" />-->
+                <br/>
+
+                <h3>Message</h3>
+                #{requestScope['javax.servlet.error.message']}
+                <br/>
+
+                <h3>URI</h3>
+                #{requestScope['javax.servlet.error.request_uri']}
+                <br/>
+
+                <p/>
+                <h3>Trace et d&eacute;tails</h3>
+                <p:commandLink type="button" value="affichez la pile" onclick="PF('exceptionDialog').show();" />
+                <p:dialog id="exceptionDialog" closable="true" header="#{requestScope['javax.servlet.error.exception_type']}" widgetVar="exceptionDialog"
+                          height="500px">
+                </p:dialog>
+                <!--
+                -->
+            </ui:insert>
+            <h:outputScript rendered="#{facesContext.partialViewContext.ajaxRequest}">scrollTo(0, 0);</h:outputScript>
+        </ui:define>
+    </ui:composition>

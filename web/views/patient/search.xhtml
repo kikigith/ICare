@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html[
+    <!ENTITY copy "&#169;">
+    <!ENTITY acirc "&#226;">
+    <!ENTITY acute "&#180;">
+    <!ENTITY agrave "&#224;">
+    <!ENTITY ccedila "&#231;">
+    <!ENTITY eacute "&#233;">
+    <!ENTITY ecirc "&#234;">
+    <!ENTITY egrave "&#232;">
+    <!ENTITY euml "&#235;">
+    <!ENTITY icirc "&#238;">
+    <!ENTITY nbsp "&#160;">
+    <!ENTITY oelig "&#339;">
+    <!ENTITY ocirc "&#244;">
+    <!ENTITY rsquo "&#8217;">
+    <!ENTITY sbquo "&#8218;">
+    <!ENTITY ucirc "&#251;">
+    <!ENTITY ugrave "&#249;">
+    ]>
+    <ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:misc="http://java.sun.com/jsf/composite/misc"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        template="/sections/templates/homePageMasterTemplate.xhtml"
+        >
+        <f:metadata>
+            <f:viewParam 
+                name="clePrimaire"
+                value="#{patientBean.id}"></f:viewParam>
+        </f:metadata>
+
+        <ui:define name="center_menu">
+                <h:outputText value="Gestion des patients" />
+                <p:separator />
+                <!--            <p:commandButton value="Nouveau" 
+                                             title="Créer un nouveau patient" 
+                                             icon="ui-icon-plus"
+                                             actionListener="#{patientBean.dlgNewActionListener('PatientEntite', 
+                                  'patientModelCC', 
+                                  'Nouvelle fiche patient')}"
+                rendered="true">
+   <p:ajax event="dialogReturn" listener="#{patientBean.onReturnFromDialog}" update=":msg :canevas-resultat" />
+</p:commandButton>-->
+                <misc:searchCaption id="search-caption"
+                                    actionListener="#{patientBean.dlgNewActionListener('PatientEntite', 
+                                                      'patientModelCC', 
+                                                      'Nouvelle fiche patient')}"
+                                    managedBean="#{patientBean}"
+                                    title="Créer un nouveau patient" 
+                                    updateIds=":msg :canevas-resultat"
+                                    >
+
+                </misc:searchCaption>                                  
+                <p:separator />
+            <h:form id="frm-search">
+                <p:fieldset legend="#{bundle.patient} : #{bundle.patient_num}" toggleable="true" collapsed="true">
+                    <p:panelGrid columns="1">
+                        <p:outputLabel for="number" escape="false" value="#{bundle.patient_num}"/>
+                        <p:panelGrid columns="2" >
+                            <p:autoComplete 
+                                id="number"
+                                scrollHeight="80"
+                                completeMethod="#{dataPicker.suggestPatientFromID}"
+                                value="#{patientBean.patient}"
+                                var="pat"
+                                itemLabel="#{pat.id}"
+                                converter="#{convertisseurIC}"
+                                minQueryLength="2"
+                                size="32"
+                                title="#{bundle.auto_complete}"
+                                >
+                            </p:autoComplete>
+                            <p:commandButton 
+                                partialSubmit="true"
+                                process="@this number"
+                                value="#{bundle.btn_ok}"
+                                icon=""
+                                actionListener="#{patientBean.searchByID}"
+                                update=":result-pane"
+                                style=""
+                                >
+
+                            </p:commandButton>
+                        </p:panelGrid>
+
+                        <p:spacer height="3" />
+
+<!--<p:outputLabel for="nom" escape="false" value="#{bundle.sirname}"/>-->
+                        <p:panelGrid columns="2" >
+
+                        </p:panelGrid>
+
+                    </p:panelGrid>
+
+                </p:fieldset>
+
+                <p:fieldset legend="#{bundle.sirname}" toggleable="true" collapsed="true">
+
+                </p:fieldset>
+            </h:form>
+
+        </ui:define>
+
+        <ui:define name="center_content">
+            <h:panelGroup id="result-pane">
+                <ui:include src="searchResult.xhtml" />
+            </h:panelGroup>
+
+        </ui:define>
+
+
+    </ui:composition>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      template="/sections/templates/welcomeTemplate.xhtml"
+      
+      >
+    <ui:define name="top_user">
+<!--        <style >
+            td{
+                
+                width:40%;
+            }
+        </style>-->
+        <form id="f-login"  method="post" action="j_security_check">
+            <table width="15%"  rules="none" align="center" border="1" cellspacing="0" cellpadding="0" bgcolor="#ffffff" style="font-size: 10px; height: 100%">
+                <tr>
+                    <td align="right" style="width: 40%">
+                        <font color="#000000" face="arial, verdana, Times New Roman" size="1" >
+                            <span><b>Utilisateur :</b></span>
+                        </font>
+                    </td> 
+                    <td align="left" style="width: 60%">
+                        <font color="#ffffff" face="arial, verdana, Times New Roman" size="1">
+                            <input type="text" name="j_username" value="admin" size="25" style="max-height: 12px;"/>
+                        </font>
+                    </td> 
+                </tr>
+                
+                <tr>
+                    <td align="right" style="width: 40%">
+                        <font color="#000000" face="arial, verdana, Times New Roman" size="1">
+                            <span><b> Mot de passe:</b></span>
+                        </font>
+                    </td> 
+                    <td align="left" style="width: 60%">
+                        <font color="#ffffff" face="arial, verdana, Times New Roman" size="1">
+                            <input type="password" name="j_password" value=""  size="25" style="max-height: 12px;"/>
+                        </font>
+                    </td> 
+                    
+                </tr>
+                <tr>
+                    <td align="center" colspan="2">
+                        <font face="Arial, Verdana, Times New Roman" color="#4b0000" size="1">
+                            <input type="submit" name="submit" value="Connexion" />
+                        </font>
+                    </td> 
+                </tr>
+            </table>
+        </form>
+    </ui:define>
+</ui:composition>

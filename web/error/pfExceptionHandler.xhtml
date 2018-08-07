@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html [
+    <!ENTITY copy "&#169;">
+    <!ENTITY acirc "&#226;">
+    <!ENTITY acute "&#180;">
+    <!ENTITY agrave "&#224;">
+    <!ENTITY ccedila "&#231;">
+    <!ENTITY eacute "&#233;">
+    <!ENTITY ecirc "&#234;">
+    <!ENTITY egrave "&#232;">
+    <!ENTITY euml "&#235;">
+    <!ENTITY icirc "&#238;">
+    <!ENTITY nbsp "&#160;">
+    <!ENTITY oelig "&#339;">
+    <!ENTITY ocirc "&#244;">
+    <!ENTITY sbquo "&#8218;">
+    <!ENTITY ucirc "&#251;">
+    <!ENTITY ugrave "&#249;">
+    ]>
+    <ui:composition
+        template="/sections/templates/homePageMasterTemplate.xhtml"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+        xmlns:of="http://omnifaces.org/functions"
+        xmlns:p="http://primefaces.org/ui">
+        <ui:define name="message" id="message-frame">
+            <center>
+                <h:outputText value="Message d'exception �mis par l'application." styleClass="h3 error" />
+                <br/>
+                <h:outputText value="Veuillez le signaler au support." />
+                <p/>
+
+                <p:fieldset legend="message d'erreur" toggleable="true" collapsed="false">
+                    <h:outputText value="#{pfExceptionHandler.message}"/>
+                </p:fieldset>
+                <p/>
+                <p:fieldset legend="pile d'erreur" toggleable="true" collapsed="true">
+                    <h:outputText value="#{pfExceptionHandler.formattedStackTrace}" escape="false" />
+                </p:fieldset>
+            </center>
+        </ui:define>
+    </ui:composition>

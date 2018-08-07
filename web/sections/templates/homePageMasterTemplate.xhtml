@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
+    <f:view contentType="text/html">
+
+        <h:head>
+            <title>ICare v1.0</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+            <h:outputStylesheet library="styles" name="css/default.css" />
+            <h:outputStylesheet library="styles" name="css/cssLayout.css" />
+
+        </h:head>
+        <h:body>
+            <div id="top">
+                <center>
+                    <div id="top_logo">Zone logo</div>
+                    <div id="top_menu">
+                        <ui:insert name="top_menu"> 
+                            <c:if test="#{profileBean.authenticated}">
+                                <ui:include src="/sections/menu/topMenu.xhtml" />
+                            </c:if>
+                        </ui:insert>
+                    </div>
+                    <div id="top_user"></div>
+                </center>
+            </div>
+
+            <div id="center">
+                <div id="center_menu">
+                    <ui:insert name="center_menu">Zone_de_menu_contextuel</ui:insert>
+                </div>
+                <div>
+
+                    <div id="center_content" class="center_content" align="center">
+                        
+                        <p:messages id="msg" 
+                                    closable="true" 
+                                    showDetail="true"
+                                    autoUpdate="true" 
+                            style="color:red; background-color: #edffbd" />
+                                        
+                        <ui:insert name="center_content">Content</ui:insert>
+                    </div>
+                </div>
+            </div>
+            <div id="footer">
+                <ui:insert name="bottom">
+                    <center>
+                        <p:spacer height="25" />
+                        <p:separator />
+                        <span id="masterTmplFooterId">
+                            <ui:include
+                                src="/resources/components/include/template/footer.xhtml">
+                            </ui:include>
+                        </span>
+                    </center>
+                </ui:insert>
+            </div>
+        </h:body>
+    </f:view>
+</html>

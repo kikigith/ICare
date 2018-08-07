@@ -1,0 +1,128 @@
+
+#top {
+    background-color: #baeb1f;
+    color: white;
+    /*padding: 5px;*/
+    height: 100px;
+    border: 1px;
+}
+
+#top_logo{
+    background-color:#ffffff;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 20%;
+    float: left;
+}
+
+#top_user{
+    background-color: bisque;
+    background-image: url("#{resource['images/key.png']}") !important;
+    background-repeat: no-repeat;
+    width: 20%;
+    float:right;
+    color:black;
+
+}
+
+#top_menu{
+    float: left;
+    /*background-color: #7e0100;*/
+    background-color:#ffffff;
+    background-image: url("#{resource['images/icare_banner.png']}") !important;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 60%;
+}
+
+#top_user,#top_menu, #top_logo {
+    /*float: left;*/
+    /*padding: 5px;*/
+    /*margin: 0px 170px 0px 170px;*/
+    /*border: 1px;*/ 
+    height: 100px;
+
+}
+
+#center{
+ /*   background-color: #045491;
+    width: 100%;*/
+    min-height: 800px;
+
+}
+
+#center_menu{
+    float: left;
+    background-color: burlywood;
+    width: 30%;
+    height: 800px;
+}
+
+#center_content{
+    float: right;
+    background-color: burlywood;
+    background-image: url("#{resource['images/healthimg/doctor.jpeg']}") !important;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 70%;
+
+}
+
+#footer {
+    /*position: relative;*/
+    background-color: #a2eb1c;
+    padding: 5px;
+    margin: 10px 0px 0px 0px;
+    border: 1px;
+    height: 10%;
+}
+
+#left {
+    float: left;
+    background-color: #00a0a0;
+    padding: 5px;
+    width: 400px;
+    border: 1px;
+}
+
+
+
+
+#left_content {
+    background-color: #ac0fae;
+    float: left;
+    padding: 5px;
+    margin-left: 170px;
+    border: 1px;
+}
+
+
+
+/*.right_content {
+    background-color: #ab000e;
+    padding: 5px;
+    margin: 0px 170px 0px 170px;
+    border: 1px;
+}*/
+
+#top a:link, #top a:visited {
+    color: white;
+    font-weight : bold;
+    text-decoration: none;
+
+}
+
+#top a:link:hover, #top a:visited:hover  {
+    color: black;
+    font-weight : bold;
+    text-decoration : underline;
+
+}
+
+.left_fieldset{
+    height: 300px;
+}
+
+.ui-menuitem-text{
+    color: black
+}

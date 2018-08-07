@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="x-iso-8859-11"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+file resources/misc/status.xhtml
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <cc:interface/>
+    <cc:implementation>
+        <p:ajaxStatus styleClass="select">
+            <f:facet name="start">
+                <h:panelGrid  columns="3" cellspacing="5">
+                    <h:outputText value="Veuillez patienter svp!" styleClass="error" />
+                    <h:graphicImage library="images" name="prime/design/ajaxloadingbar.gif" alt="*" />
+                    <h:graphicImage library="images" name="prime/design/ajaxloading.gif" alt="*" />
+                </h:panelGrid>
+                
+            </f:facet>
+            
+            <f:facet name="complete" >
+                <h:outputText value="" />
+            </f:facet>
+        </p:ajaxStatus>
+        <p:spacer height="10" />
+    </cc:implementation>
+</html>

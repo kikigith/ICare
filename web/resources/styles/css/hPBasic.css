@@ -1,0 +1,303 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 11 août 2016, 11:47:59
+    Author     : kiki
+*/
+
+body {
+	margin: 0px;
+	padding: 0;
+	font-size: 12px;
+	color: #616161;
+}
+a:link    {
+    /* Applies to all unvisited links */
+    text-decoration:  none;
+}
+
+a:visited {
+    /* Applies to all visited links */
+    text-decoration:  none;
+}
+a:hover   {
+    /* Applies to links under the pointer */
+    text-decoration:  none;
+}
+a:active  {
+    text-decoration:  none;
+}
+
+.borderLess tr, .borderLess td {
+    background: none !important;
+    border: none !important;
+}
+
+.tooltip {
+     background-color: yellow;
+     color: black;
+}
+
+.center {
+    text-align: center;
+}
+
+.dt_in {
+    background-color: #7e94ae;
+    color: white;
+    text-align: left;
+    width: 100%;
+}
+
+.dt_out {
+    color: #741616;
+    text-align: right;
+}
+
+.em {
+    color: navy;
+}
+
+.error {
+    color: red;
+    font-weight: bold;
+}
+
+.event_style .fc-event-skin {
+    background: yellow;
+    color: black;
+}
+
+.item_label {
+    text-align: right;
+    vertical-align: top;
+}
+
+.item_value {
+    text-align: left;
+    vertical-align: top;
+}
+
+.item_label3 {
+    text-align: right; vertical-align: middle;
+}
+
+.item_value3 {
+    text-align: left; vertical-align: middle;
+}
+
+.left {
+    text-align: left;
+}
+
+.messageInput {
+    width:400px;
+}
+
+.msg {
+    color: #003400;
+    text-align: left;
+}
+
+.submit_button3 {
+    text-align: left; vertical-align: middle;
+}
+
+.new {
+    background: url(../../../resources/images/prime/new-ico.gif) no-repeat 1%;
+}
+
+.content_caption {
+    color:maroon;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.right {
+    text-align: right;
+}
+
+.select {
+    margin-right:10px;
+    width: 37em;
+}
+
+.thLeft {
+    text-align: right;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.thRight {
+    text-align: left;
+    color:maroon;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.tree {
+    width: 80%;
+}
+
+.credit {
+    color: blue;
+}
+
+.debit {
+    color: red;
+}
+
+.enregistrement_reussi {
+    color: blue;
+}
+
+.leftMenu {
+    background-color: #b2f4cc;/*#f3e35b; ecrater pour bug dans 2.2.1 696736;*/
+    color: #ffffff;
+    font-family: Lucida Console;/**verdana,sans-serif,arial;**/
+    font-size: 10pt;
+    font-weight: normal;
+}
+
+.footer {
+    background-color: #9999CC;
+    color: yellow;
+    font-family : verdana, Arial, Helvetica, sans-serif;
+    font-size: 77%;
+    text-align : center;
+}
+
+.table_bar {
+    background-color: #7e0100;
+    color: white;
+}
+
+.topMenu {
+    background-color: #9999CC;
+    color: yellow;
+    font-family : Lucida Console;/**verdana, Arial, Helvetica, sans-serif;**/
+    font-size: 77%;
+    text-align : center;
+}
+
+.hr {
+    color: #000000;
+    border-color: #666666 black black;
+    border-style: dotted;
+    border-top-width: 1px;
+}
+
+.profileHeader {
+/*    color: #8b0000;*/
+    font-size: 14pt;
+    font-weight: bold;
+}
+
+.profileTopMenu {
+    font-family: Lucida Console;/**Arial, Helvetica, sans-serif;**/
+    font-size: 16px;
+    font-style: normal;
+    line-height: normal;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 2px;
+}
+
+.h1, .content_caption {
+    font-family: Lucida Console;/**Arial, Helvetica, sans-serif;**/
+    font-size: 20px;
+    font-style: normal;
+    line-height: normal;
+    font-weight: bold;
+    /*color: #003333;*/
+    margin-bottom: -2px;
+
+}
+
+.h2, .content_caption {
+    font-family: Lucida Console;/**Arial, Helvetica, sans-serif;**/
+    font-size: 18px;
+    font-style: normal;
+    line-height: normal;
+    font-weight: bold;
+    color: #003333;
+    margin-bottom: -2px;
+
+}
+
+.h3 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    line-height: normal;
+    font-weight: bold;
+    /* color: #000000;*/
+    margin-bottom: 2px;
+}
+
+.h3 {
+    font-family: Lucida Console;/**Arial, Helvetica, sans-serif;**/
+    font-size: 14px;
+    font-style: normal;
+    line-height: normal;
+    font-weight: bold;
+    /* color: #000000;*/
+    margin-bottom: 2px;
+}
+
+.h4 {
+    font-family: Lucida Console;/**Arial, Helvetica, sans-serif;**/
+    font-size: 12px;
+    font-style: normal;
+    line-height: normal;
+    font-weight: bold;
+    /* color: #000000;*/
+    margin-bottom: 2px;
+}
+
+.h5 {
+    font-family: Lucida Console;/**Arial, Helvetica, sans-serif;**/
+    font-size: 10px;
+    font-style: normal;
+    line-height: normal;
+    font-weight: bold;
+    /* color: #000000;*/
+    margin-bottom: 2px;
+}
+
+.lMenuItem {
+    text-align: left;
+}
+
+.noteInvalide, .noteNA {
+    background-color: black;
+    color: white;
+
+}
+
+.noteEchec {
+    background-color: red;
+    color: white;
+
+}
+
+.noteReussite {
+    background-color: blue;
+    color: white;
+
+}
+
+.noteCredit {
+    background-color: green;
+    color: white;
+
+}
+
+.csv_hdr {
+    font-weight: bold;
+    background-color: black;
+    color: yellow;
+}

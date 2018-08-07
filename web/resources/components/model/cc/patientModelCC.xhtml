@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      >
+
+    <!--Interface-->
+    <cc:interface>
+        <cc:attribute name="row" required="true" />
+        <cc:attribute name="accessWrite" required="true" />
+    </cc:interface>
+
+    <!--Implementation-->
+    <cc:implementation>
+        <p:panelGrid columns="2" >
+
+<!--            <h:outputText value="Numero: " />
+            <h:inputText id="#{cc.id.concat('-numero')}" 
+                         value="#{cc.attrs.row.id}"
+                         required="true"
+                         size="32"
+                         maxlength="20"
+                         validatorMessage="Erreur de validation du numéro"
+                         disabled="#{not cc.attrs.accessWrite}">
+            </h:inputText>-->
+
+            <h:outputText value="Nom de Famille " />
+            <h:inputText id="#{cc.id.concat('-nom')}" 
+                         value="#{cc.attrs.row.nom}"
+                         required="true"
+                         size="32"
+                         maxlength="20"
+                         validatorMessage="Erreur nom de famille non valide"
+                         disabled="#{not cc.attrs.accessWrite}">
+            </h:inputText>
+
+            <h:outputText value="Prénoms " />
+            <h:inputText id="#{cc.id.concat('-prenoms')}" 
+                         value="#{cc.attrs.row.prenoms}"
+                         required="true"
+                         size="32"
+                         maxlength="20"
+                         validatorMessage="Erreur prénoms non valide"
+                         disabled="#{not cc.attrs.accessWrite}">
+            </h:inputText>
+
+            <h:outputText value="Date de Naissance " />
+            <p:calendar 
+                value="#{cc.attrs.row.dateNaissance}"
+                pattern="dd/MM/yyyy"
+                required="true"
+                disabled="false">
+                <f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+            </p:calendar>
+
+            <h:outputText value="sexe" />  
+            <h:selectOneMenu
+                disabled="false"
+                value="#{cc.attrs.row.sexe}"
+                required="true"
+                requiredMessage="Le sexe est obligatoire"
+                >
+                <f:selectItem itemLabel="#{bundle.selectItemMsg}" itemValue="" />
+                <f:selectItem itemLabel="Masculin" itemValue="M" />
+                <f:selectItem itemLabel="Féminin" itemValue="F" />
+            </h:selectOneMenu>
+
+            <h:outputText value="Lieu de Naissance " />
+            <h:inputText id="#{cc.id.concat('-lieuNaissance')}" 
+                         value="#{cc.attrs.row.lieuNaissance}"
+                         required="true"
+                         size="32"
+                         maxlength="20"
+                         validatorMessage="Erreur lieu de naissance non valide"
+                         disabled="#{not cc.attrs.accessWrite}">
+            </h:inputText>
+
+            <h:outputText value="Département Origine" />
+            <h:inputText id="#{cc.id.concat('-departementOrigine')}" 
+                         value="#{cc.attrs.row.departementOrigine}"
+                         required="true"
+                         size="32"
+                         maxlength="20"
+                         validatorMessage="Erreur département non valide"
+                         disabled="#{not cc.attrs.accessWrite}">
+            </h:inputText>
+
+            <h:outputText value="Ville Origine" />
+            <h:inputText id="#{cc.id.concat('-villeOrigine')}" 
+                         value="#{cc.attrs.row.villeOrigine}"
+                         required="true"
+                         size="32"
+                         maxlength="20"
+                         validatorMessage="Erreur ville non valide"
+                         disabled="#{not cc.attrs.accessWrite}">
+            </h:inputText>
+
+
+            <h:outputText value="Téléphone" />
+            <h:inputText id="#{cc.id.concat('-telephone')}" 
+                         value="#{cc.attrs.row.telephone}"
+                         required="true"
+                         size="32"
+                         maxlength="20"
+                         validatorMessage="Erreur telephone non valide"
+                         disabled="#{not cc.attrs.accessWrite}">
+            </h:inputText>
+
+            <h:outputText value="email" />
+            <h:inputText id="#{cc.id.concat('-email')}" 
+                         value="#{cc.attrs.row.email}"
+                         required="true"
+                         size="32"
+                         maxlength="20"
+                         validatorMessage="Erreur email non valide"
+                         disabled="#{not cc.attrs.accessWrite}">
+            </h:inputText>
+
+            <!--             <h:outputText value="Adresse" />
+                        <h:inputText id="#{cc.id.concat('-adresse')}" 
+                                     value="#{cc.attrs.row.adresse}"
+                                     required="true"
+                                     size="32"
+                                     maxlength="20"
+                                     validatorMessage="Erreur adresse non valide"
+                                     disabled="#{not cc.attrs.accessWrite}">
+                        </h:inputText>
+                         
+                         <h:outputText value="categorie" />
+                        <h:inputText id="#{cc.id.concat('-categorie')}" 
+                                     value="#{cc.attrs.row.categorie}"
+                                     required="true"
+                                     size="32"
+                                     maxlength="20"
+                                     validatorMessage="Erreur categorie non valide"
+                                     disabled="#{not cc.attrs.accessWrite}">
+                        </h:inputText>-->
+
+            <h:outputText value="Adresse" />
+            <h:inputText id="#{cc.id.concat('-adresse')}" 
+                         value="#{cc.attrs.row.adresse}"
+                         required="true"
+                         size="32"
+                         maxlength="20"
+                         validatorMessage="Erreur adresse non valide"
+                         disabled="#{not cc.attrs.accessWrite}">
+            </h:inputText>
+
+            <h:outputText value="* Assurance : " />
+<!--            <p:selectOneMenu
+                id="#{cc.id.concat('-assurance')}"
+                disabled="#{not cc.attrs.accessWrite}"
+                styleClass="select"
+                var="as" 
+                value="#{cc.attrs.row.assurance}"
+                converter="convertisseurIC"
+                required="true"
+                requiredMessage="'Assurance' obligatoire">
+                <f:selectItem itemLabel="#{bundle.selectItemMsg}" itemValue="" />
+                <f:selectItems
+                    value="#{toutesLesCategories}"
+                    var="uneCategorie"
+                    itemLabel="#{uneCategorie.toString()}"
+                    itemValue="#{uneCategorie}">
+                </f:selectItems>
+                <p:column>#{as}</p:column>
+            </p:selectOneMenu>-->
+            
+            <h:outputText value="* Categorie : " />
+                 <!--disabled="#{(not cc.attrs.accessWrite) or (not profileBean.agent) or (cc.attrs.row.nouvelleFiche and (cc.attrs.row.categorie != null))}"-->
+            <!--<p:inplace toggleable="true">-->
+            <p:selectOneMenu
+                id="#{cc.id.concat('-categorie')}"
+                disabled="#{not cc.attrs.accessWrite}"
+                styleClass="select"
+                var="ct" 
+                value="#{cc.attrs.row.categorie}"
+                converter="convertisseurIC"
+                required="true"
+                requiredMessage="'Categorie' obligatoire">
+                <f:selectItem itemLabel="#{bundle.selectItemMsg}" itemValue="" />
+                <f:selectItems
+                    value="#{toutesLesCategories}"
+                    var="uneCategorie"
+                    itemLabel="#{uneCategorie.toString()}"
+                    itemValue="#{uneCategorie}">
+                </f:selectItems>
+                <p:column>#{ct}</p:column>
+            </p:selectOneMenu>
+            <!--</p:inplace>-->
+        </p:panelGrid>
+
+    </cc:implementation>
+</html>

@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <display-name>ICare</display-name>
+    <description>ICare Copyright IT Deal. All Rights reserved</description>
+    
+    <context-param>
+        <param-name>javax.faces.PROJECT_STAGE</param-name>
+        <param-value>Development</param-value>
+    </context-param>
+    <context-param>
+        <param-name>javax.faces.ENABLE_CDI_RESOLVER_CHAIN</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <context-param>
+        <param-name>primefaces.THEME</param-name>
+        <param-value>aristo</param-value>
+    </context-param>
+    <context-param>
+        <param-name>primefaces.THEME</param-name>
+        <param-value>sunny</param-value>
+    </context-param>
+    <context-param>
+        <param-name>javax.faces.DATETIMECONVERTER_DEFAULT_TIME_ZONE_IS_SYSTEM_TIMEZONE</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <context-param>
+        <param-name>main_schema</param-name>
+        <param-value>ci</param-value>
+    </context-param>
+    <context-param>
+        <param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <context-param>
+        <param-name>javax.faces.FACELETS_BUFFER_SIZE</param-name>
+        <param-value>65535</param-value>
+    </context-param>
+    <context-param>
+        <param-name>primefaces.CLIENT_SIDE_VALIDATION</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <context-param>
+        <param-name>primefaces.UPLOADER</param-name>
+        <param-value>auto</param-value>
+    </context-param>
+    <context-param>
+        <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+        <param-value>.xhtml</param-value>
+    </context-param>
+    <context-param>
+        <param-name>primefaces.CACHE_PROVIDER</param-name>
+        <param-value>org.primefaces.cache.EHCacheProvider</param-value>
+    </context-param>
+    
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.jsf</url-pattern>
+        <url-pattern>*.xhtml</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>index.xhtml</welcome-file>
+        <welcome-file>index.jsf</welcome-file>
+    </welcome-file-list>
+    
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>icJdbcDomainLegacy</realm-name>
+        <form-login-config>
+            <form-login-page>/auth/login.xhtml</form-login-page>
+            <form-error-page>/auth/loginError.xhtml</form-error-page>
+        </form-login-config>
+    </login-config>
+    
+    
+    <error-page>
+        <exception-type>java.lang.NullPointerException</exception-type>
+        <location>/error/pfExceptionHandler.jsf</location>
+    </error-page>
+
+    <error-page>
+        <exception-type>java.lang.RuntimeException</exception-type>
+        <location>/error/pfExceptionHandler.jsf</location>
+    </error-page>
+
+    <error-page>
+        <exception-type>java.lang.Throwable</exception-type>
+        <location>/error/error.xhtml</location>
+    </error-page>
+
+    <error-page>
+        <exception-type>java.sql.SQLException</exception-type>
+        <location>/error/pfExceptionHandler.jsf</location>
+    </error-page>
+
+    <error-page>
+        <exception-type>java.util.concurrent.TimeoutException</exception-type>
+        <location>/error/pfExceptionHandler.jsf</location>
+    </error-page>
+
+    <error-page>
+        <exception-type>javax.ejb.NoSuchEJBException</exception-type>
+        <location>/error/pfExceptionHandler.jsf</location>
+    </error-page>
+
+    <error-page>
+        <exception-type>javax.el.PropertyNotFoundException</exception-type>
+        <location>/error/pfExceptionHandler.jsf</location>
+    </error-page>
+
+    <error-page>
+        <exception-type>javax.faces.application.ViewExpiredException</exception-type>
+        <location>/error/pfExceptionHandler.jsf</location>
+    </error-page>
+
+    <error-page>
+        <exception-type>javax.faces.view.facelets.TagException</exception-type>
+        <location>/error/pfExceptionHandler.jsf</location>
+    </error-page>
+
+    <error-page>
+        <exception-type>javax.persistence.PersistenceException</exception-type>
+        <location>/error/pfExceptionHandler.jsf</location>
+    </error-page>
+
+    <error-page>
+        <exception-type>org.eclipse.persistence.exceptions.DatabaseException</exception-type>
+        <location>/error/pfExceptionHandler.jsf</location>
+    </error-page>
+    
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>
+                Protected ICare
+            </web-resource-name>
+            <!--Protect all the site-->
+            
+            <url-pattern>/views/*</url-pattern>
+            <url-pattern>/index.*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>admin</role-name>
+            <role-name>itdeal</role-name>
+        </auth-constraint>
+        <user-data-constraint>
+            <transport-guarantee>NONE</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+    
+    
+    <security-role>
+        <role-name>admin</role-name>
+    </security-role>   
+    <security-role>
+        <role-name>itdeal</role-name>
+    </security-role>
+    
+    
+    
+     <mime-mapping>
+        <extension>xhtml</extension>
+        <mime-type>application/xml</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>ttf</extension>
+        <mime-type>application/font-sfnt</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>woff</extension>
+        <mime-type>application/font-woff</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>eot</extension>
+        <mime-type>application/vnd.ms-fontobject</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>eot?#iefix</extension>
+        <mime-type>application/vnd.ms-fontobject</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>svg</extension>
+        <mime-type>image/svg+xml</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>svg#exosemibold</extension>
+        <mime-type>image/svg+xml</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>svg#exobolditalic</extension>
+        <mime-type>image/svg+xml</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>svg#exomedium</extension>
+        <mime-type>image/svg+xml</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>svg#exoregular</extension>
+        <mime-type>image/svg+xml</mime-type>
+    </mime-mapping>
+</web-app>

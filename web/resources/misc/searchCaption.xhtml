@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- file : /resources/misc/searchCaption.xhtml -->
+<div
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:composite="http://java.sun.com/jsf/composite"
+        xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ds="http://deltaspike.apache.org/jsf"
+        xmlns:p="http://primefaces.org/ui">
+  <composite:interface>
+        <composite:attribute name="actionListener" required="true" method-signature="void action(java.lang.String)" />  <!--button's action listener -->
+        <composite:attribute name="managedBean" required="true" type="net.ericattou.icare.model.bean.MasterBean"/>
+        <composite:attribute name="title" required="true"/>  <!--button title -->
+        <composite:attribute name="updateIds" required="true" />  <!--Id to be updated following creation action -->
+    </composite:interface>
+    <composite:implementation>
+        <center>
+            <h:form id="#{cc.id.concat('f-caption')}" prependId="false" enctype="multipart/form-data">
+                <c:if test="#{not dialogBean.alive}">
+                    <h:outputText value="Le composant de dialogue n'est pas disponible ! " styleClass="error" />
+                </c:if>
+                <h:panelGroup id="#{cc.id.concat('-pnl')}" layout="block">
+                    <ds:disableClientWindow>
+                        <p:commandButton
+                            id="#{cc.id.concat('-cmd')}"
+                            value="#{bundle.creer}"
+                            title="#{cc.attrs.title}"
+                            icon="ui-icon icon-new"
+                            update="#{cc.attrs.updateIds}"
+                            actionListener="#{cc.attrs.actionListener}">
+                            <p:ajax event="dialogReturn" listener="#{cc.attrs.managedBean.onReturnFromNewRecord}" update="#{cc.attrs.updateIds}" />
+                        </p:commandButton>
+                    </ds:disableClientWindow>
+                    <hr/>
+                </h:panelGroup>
+            </h:form>
+        </center>
+    </composite:implementation>      
+</div>

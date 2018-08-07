@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:model="http://java.sun.com/jsf/composite/components/model/cc"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <c:choose>
+        <c:when test="#{component eq 'consultationModelCC'}">
+            <model:consultationModelCC
+                id="#{id}"
+                accessWrite="#{accessWrite}"
+                row="#{var}">
+            </model:consultationModelCC>
+        </c:when>
+        <c:when test="#{component eq 'examenModelCC'}">
+            <model:examenModelCC
+                id="#{id}"
+                accessWrite="#{accessWrite}"
+                row="#{var}">
+            </model:examenModelCC>
+        </c:when> 
+        <c:when test="#{component eq 'patientModelCC'}">
+            <model:patientModelCC
+                id="#{id}"
+                accessWrite="#{accessWrite}"
+                row="#{var}">
+            </model:patientModelCC>
+        </c:when> 
+        <c:when test="#{component eq 'rdvModelCC'}">
+            <model:rdvModelCC
+                id="#{id}"
+                accessWrite="#{accessWrite}"
+                row="#{var}">
+            </model:rdvModelCC>
+        </c:when> 
+        
+        <!--<c:when test="#{component eq 'parametreModelCC'}">
+            <model:parametreModelCC
+                id="#{id}"
+                accessWrite="#{accessWrite}"
+                row="#{var}">
+            </model:parametreModelCC>
+        </c:when> 
+        <c:when test="#{component eq 'retrocessionModelCC'}">
+            <model:retrocessionModelCC
+                id="#{id}"
+                accessWrite="#{accessWrite}"
+                row="#{var}">
+            </model:retrocessionModelCC>
+        </c:when> 
+        <c:when test="#{component eq 'indicateurRepartitionModelCC'}">
+            <model:indicateurRepartitionModelCC
+                id="#{id}"
+                accessWrite="#{accessWrite}"
+                row="#{var}">
+            </model:indicateurRepartitionModelCC>
+        </c:when> 
+        <c:when test="#{component eq 'typeFormationModelCC'}">
+            <model:typeFormationModelCC
+                id="#{id}"
+                accessWrite="#{accessWrite}"
+                row="#{var}">
+            </model:typeFormationModelCC>
+        </c:when> 
+        <c:when test="#{component eq 'etablissementModelCC'}">
+            <model:etablissementModelCC
+                id="#{id}"
+                accessWrite="#{accessWrite}"
+                row="#{var}">
+            </model:etablissementModelCC>
+        </c:when>
+
+        <c:when test="#{component eq 'organeModelCC'}">
+            <model:organeModelCC
+                id="#{id}"
+                accessWrite="#{accessWrite}"
+                row="#{var}">
+            </model:organeModelCC>
+        </c:when>
+
+        <c:when test="#{component eq 'typeFraisFIModelCC'}">
+            <model:typeFraisFIModelCC
+                id="#{id}"
+                accessWrite="#{accessWrite}"
+                row="#{var}">
+            </model:typeFraisFIModelCC>
+        </c:when>
+       
+            <c:when test="#{component eq 'avanceModelCC'}">
+                <model:avanceModelCC
+                    id="#{id}"
+                    accessWrite="#{accessWrite}"
+                    row="#{var}">
+                </model:avanceModelCC>
+            </c:when> 
+            <c:when test="#{component eq 'anAcademiqueModelCC'}">
+                <model:anAcademiqueModelCC
+                    id="#{id}"
+                    accessWrite="#{accessWrite}"
+                    row="#{var}">
+                </model:anAcademiqueModelCC>
+            </c:when> 
+            <c:when test="#{component eq 'parametreModelCC'}">
+                <model:parametreModelCC
+                    id="#{id}"
+                    accessWrite="#{accessWrite}"
+                    row="#{var}">
+                </model:parametreModelCC>
+            </c:when> 
+            <c:when test="#{component eq 'retrocessionModelCC'}">
+                <model:retrocessionModelCC
+                    id="#{id}"
+                    accessWrite="#{accessWrite}"
+                    row="#{var}">
+                </model:retrocessionModelCC>
+            </c:when> 
+            <c:when test="#{component eq 'indicateurRepartitionModelCC'}">
+                <model:indicateurRepartitionModelCC
+                    id="#{id}"
+                    accessWrite="#{accessWrite}"
+                    row="#{var}">
+                </model:indicateurRepartitionModelCC>
+            </c:when> 
+            <c:when test="#{component eq 'typeFormationModelCC'}">
+                <model:typeFormationModelCC
+                    id="#{id}"
+                    accessWrite="#{accessWrite}"
+                    row="#{var}">
+                </model:typeFormationModelCC>
+            </c:when> 
+        <c:when test="#{component eq 'cleRepartitionFIModelCC'}">
+            <model:cleRepartitionFIModelCC
+                id="#{id}"
+                accessWrite="#{accessWrite}"
+                row="#{var}">
+            </model:cleRepartitionFIModelCC>
+        </c:when>
+       
+        <c:when test="#{component eq 'cleRepartitionFFModelCC'}">
+            <model:cleRepartitionFFModelCC
+                id="#{id}"
+                accessWrite="#{accessWrite}"
+                row="#{var}">
+            </model:cleRepartitionFFModelCC>
+        </c:when>
+        <c:when test="#{component eq 'typeFormationModelCC'}">
+            <model:typeFormationModelCC
+                id="#{id}"
+                accessWrite="#{accessWrite}"
+                row="#{var}">
+            </model:typeFormationModelCC>
+        </c:when>
+        <c:when test="#{component eq 'utilisateurModelCC'}">
+            <model:utilisateurModelCC
+                id="#{id}"
+                accessWrite="#{accessWrite}"
+                row="#{var}">
+            </model:utilisateurModelCC>
+            
+        </c:when>
+         <c:when test="#{component eq 'roleModelCC'}">
+            <model:roleModelCC
+                id="#{id}"
+                accessWrite="#{accessWrite}"
+                row="#{var}">
+            </model:roleModelCC>
+        </c:when>-->
+    </c:choose>
+</html>

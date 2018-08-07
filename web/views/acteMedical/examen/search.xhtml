@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html[
+    <!ENTITY copy "&#169;">
+    <!ENTITY acirc "&#226;">
+    <!ENTITY acute "&#180;">
+    <!ENTITY agrave "&#224;">
+    <!ENTITY ccedila "&#231;">
+    <!ENTITY eacute "&#233;">
+    <!ENTITY ecirc "&#234;">
+    <!ENTITY egrave "&#232;">
+    <!ENTITY euml "&#235;">
+    <!ENTITY icirc "&#238;">
+    <!ENTITY nbsp "&#160;">
+    <!ENTITY oelig "&#339;">
+    <!ENTITY ocirc "&#244;">
+    <!ENTITY rsquo "&#8217;">
+    <!ENTITY sbquo "&#8218;">
+    <!ENTITY ucirc "&#251;">
+    <!ENTITY ugrave "&#249;">
+    ]
+    >
+    <ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:f="http://xmlns.jcp.org/jsf/core"
+        xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        xmlns:misc="http://xmlns.jcp.org/jsf/composite/misc"
+        template="/sections/templates/homePageMasterTemplate.xhtml"
+        >
+
+        <f:metadata>
+            <f:viewParam
+                name="clefPrimaire"
+                value="#{rdvBean.id}"
+                >
+            </f:viewParam>
+        </f:metadata>
+
+        <ui:define name="center_menu">
+            <h:form id="frm-search"> 
+                <h:outputText value="Gestion des RDV" />
+                <p:separator/>
+
+                <p:commandButton value="Nouveau"
+                                 title="Créer un nouveau RDV"
+                                 icon="ui-icon-plus"
+                                 actionListener="#{rdvBean.dlgNewActionListener('ExamenMedicalEntite',
+                                                   'examenModelCC',
+                                                   'Nouvelle fiche Examen')}"
+                                 rendered="true"
+                                 ></p:commandButton>
+                             <!--<p:ajax event="dialogReturn" listener="#{rdvBean.onReturnFromDialog}" update=":msg :canevas-resultat" />-->
+                <p:separator/>
+
+
+                <p:fieldset  legend="#{bundle.rdv } : #{bundle.rdv_num}" toggleable="true" collapsed="true">
+                    <p:panelGrid columns="1" >
+                        <h:outputLabel for="number" escape="false" value="#{bundle.rdv_num}" />
+                        <p:panelGrid columns="2">
+                            <p:autoComplete 
+                                id="number"
+                                scrollHeight="80"
+                                completeMethod="#{dataPicker.suggestPatientFromID}"
+                                value="#{rdvBean.rdv}"
+                                var="rdv"
+                                itemLabel="#{rdv.id}"
+                                converter="#{convertisseurIC}"
+                                minQueryLength="2"
+                                size="32"
+                                title="#{bundle.auto_complete}" />
+                        </p:panelGrid>
+                        <p:commandButton
+                            partialSubmit="true"
+                            process="@this number"
+                            value="#{bundle.btn_ok}"
+                            icon=""
+                            actionListener="#{rdvBean.searchByID}"
+                            update=":result-pane"
+                            style="" >
+                        </p:commandButton>
+                    </p:panelGrid>
+
+                    <p:spacer height="3" />
+
+                    <p:panelGrid columns="3">
+
+                    </p:panelGrid>
+                </p:fieldset>
+
+                <p:separator/>
+                <p:fieldset >
+
+                </p:fieldset>
+            </h:form>
+        </ui:define>
+
+        <ui:define name="center_content">
+            <h:panelGroup id="result-pane">
+                <ui:include src="searchResult.xhtml" />
+            </h:panelGroup>
+        </ui:define>
+    </ui:composition>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:composite="http://java.sun.com/jsf/composite"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <h:form id="TmplFooterFormId" prependId="false">
+        <h:panelGrid columns="5">
+            <h:outputText
+                style="color:#6d5434; font-weight: italic; font-size: 8pt; font-family: verdana;"
+                value="(c) ICare v1.0 - IT Deal tous droits réservés">
+            </h:outputText>
+
+            <p:spacer width="15"/>
+
+<!--            <h:panelGrid columns="2" cellpadding="10">
+                <h:outputText value="#{bundle.lookAndFeel} : "/>
+                <p:themeSwitcher id="statefulSwitcher" value="#{themeSwitcherBean.theme}" style="width:165px;" effect="fade">
+                    <f:selectItem itemLabel="#{bundle.lookAndFeel}" itemValue="" />
+                    <f:selectItems value="#{themeSwitcherBean.themes}" />
+                    <p:ajax listener="#{themeSwitcherBean.saveTheme}" update="@all" />
+                </p:themeSwitcher>
+
+            </h:panelGrid>
+
+            <p:spacer width="15"/>
+
+            <p:button outcome="/index.html" value="#{bundle.accueil}" icon="ui-icon-home" />-->
+        </h:panelGrid>
+    </h:form>
+</ui:composition>

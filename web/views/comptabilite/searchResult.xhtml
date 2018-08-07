@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"    >
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+    >
+    
+    <center>
+        <h:panelGroup id="canevas-resultat" >
+            <h:form id="f-dataTable" prependId="false" enctype="multipart/form-data" >
+                <p:dataTable
+                    id="r-dataTable"
+                    var="fiche"
+                    value="#{rdvBean.listResult}"
+                    selectionMode="multiple"
+                    selection="#{rdvBean.selections}"
+                    paginator="true"
+                    paginatorAlwaysVisible="false"
+                    rowKey="#{fiche.id}"
+                    rowsPerPageTemplate="10,20,30,40"
+                    rows="20"
+                    rendered="true"
+                    lazy="false"
+                    >
+                    <f:facet name="header">
+                        <h:outputText value="Les RDV" />
+                    </f:facet>
+                    
+                    <p:column >
+                        
+                    </p:column>
+                    
+                    
+                    <f:facet name="footer">
+                        <h:panelGrid columns="7" styleClass="borderLess center">
+                            <h:commandLink 
+                                title="Exporter la liste vers MS Excel">
+                                <h:graphicImage library="images" name="icons/excel_1.png" alt="excel" />
+                                <p:dataExporter type="xlsx" target=":f-dataTable:r-dataTable" fileName="patient"
+                                                postProcessor="#{rdvBean.postProcessXLSX}" />
+                                
+                            </h:commandLink>
+                            <h:commandLink 
+                                title="Exporter la page affichée vers MS Excel">
+                                <h:graphicImage library="images" name="icons/xlsx.png" alt="excel" />
+                                <p:printer target=":f-dataTable:r-dataTable" />
+                                
+                            </h:commandLink>
+                            <h:commandLink 
+                                title="Imprimer" type="button">
+                                <h:graphicImage library="images" name="icons/printer.png" alt="imprimer" />
+                                <p:dataExporter type="xlsx" target=":f-dataTable:r-dataTable" fileName="patient"
+                                                postProcessor="#{rdvBean.postProcessXLSX}" pageOnly="true"/>
+                                
+                            </h:commandLink>
+                            <p:commandLink 
+                                title="rafraichir" 
+                                actionListener="#{rdvBean.reloadCurrentPage}"
+                                update=":msg :canevas-resultat" 
+                                immediate="true"
+                                >
+                                <h:graphicImage library="images" name="icons/refresh.png" alt="rafraîchir" />
+                                
+                            </p:commandLink>
+                            <p:commandButton 
+                                title="Supprimerr les sélections" 
+                                icon="ui-icon-close"
+                                update=":msg :canevas-resultat"
+                                actionListener="#{rdvBean.dlgDelectActionListener(constant.mainEntity,constant.notApplicable,
+                                                  constant.componentSummaryLocation.concat('rdvSummary.xhtml'),supprimer)}"
+                                rendered="true"
+                                >
+                                <p:ajax event="dialogReturn" 
+                                        listener="#{rdvBean.onReturnFromDeleteRecord}"
+                                        update=":msg :canevas-resultat"/>
+                                
+                            </p:commandButton>
+
+                            <p:button outcome="/index.jsf" title="fermer" icon="ui-icon-home" />
+                        </h:panelGrid>
+                    </f:facet>
+                </p:dataTable>
+            </h:form>
+        </h:panelGroup>
+    </center>
+    
+</ui:composition>
