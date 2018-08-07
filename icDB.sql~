@@ -1,0 +1,402 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.5.3
+-- Dumped by pg_dump version 9.5.3
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: icDB; Type: SCHEMA; Schema: -; Owner: icare
+CREATE SCHEMA icare;
+
+ALTER SCHEMA icare OWNER TO icare;
+
+ALTER EXTENSION IF NOT EXISTS plpgsl WITH SCHEMA pg_catalog;
+
+COMMENT ON EXTENSION plpgsql IS 'PL/PGSQL procedural language';
+
+SET search_path = ci, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+CREATE TABLE mode_reglement (
+  code_mode VARCHAR(32) NOT NULL, 
+  date_modif DATE NOT NULL, 
+  encodeur VARCHAR(80), 
+  libelle VARCHAR(255), 
+  version double precision, 
+  PRIMARY KEY (code_mode)
+);
+
+
+
+CREATE TABLE MATERIELMEDICALENTITE (
+  id VARCHAR(32) NOT NULL, 
+  date_modif DATE NOT NULL, 
+  encodeur VARCHAR(80), 
+  version double precision,
+  PRIMARY KEY (id)
+);
+
+
+
+CREATE TABLE personne (
+  id_pers VARCHAR(32) NOT NULL, 
+  DTYPE VARCHAR(31), 
+  date_modif DATE NOT NULL, 
+  date_naissance DATE NOT NULL, 
+  departement_origine VARCHAR(30), 
+  email VARCHAR(30), 
+  encodeur VARCHAR(80), 
+  lieu_naissance VARCHAR(40) NOT NULL, 
+  nom VARCHAR(80) NOT NULL, 
+  PHOTO VARCHAR(255), 
+  prenoms VARCHAR(100) NOT NULL, 
+  sexe VARCHAR(1) NOT NULL, 
+  telephone VARCHAR(30), 
+  version long, 
+  ville_origine VARCHAR(30), 
+  adresse VARCHAR(32) NOT NULL, 
+  categorie VARCHAR(255) NOT NULL, 
+  specialite VARCHAR(255) NOT NULL, 
+  ASSURANCE_num_assurance VARCHAR(8), 
+  PRIMARY KEY (id_pers)
+);
+
+
+CREATE TABLE consultation (
+  num_cons VARCHAR(32) NOT NULL, 
+  date_consultation DATE NOT NULL, 
+  date_modif DATE NOT NULL, 
+  encodeur VARCHAR(80), 
+  version double precision, 
+  patient VARCHAR(255) NOT NULL, 
+  praticien VARCHAR(255) NOT NULL, 
+  RDV_id VARCHAR(32), 
+  SPECIALITE_code VARCHAR(8), 
+  PRIMARY KEY (num_cons)
+);
+
+
+CREATE TABLE medicale (
+  num_prest VARCHAR(32) NOT NULL, 
+  date_modif DATE NOT NULL, 
+  date_prestation DATE, 
+  encodeur VARCHAR(80), 
+  libelle VARCHAR(100), 
+  version double precision, 
+  CONSULTATION_num_cons VARCHAR(32), 
+  NATURE_code VARCHAR(8), 
+  PRIMARY KEY (num_prest)
+);
+
+
+CREATE TABLE SALLEHOSPITALISATIONENTITE (
+  id VARCHAR(32) NOT NULL, 
+  date_modif DATE NOT NULL, 
+  encodeur VARCHAR(80), 
+  version double precision, 
+PRIMARY KEY (id)
+);
+
+
+CREATE TABLE icare.CLASSEPHARMACEUTIQUEENTITE (
+  id VARCHAR(32) NOT NULL, 
+  date_modif DATE NOT NULL, 
+  encodeur VARCHAR(80), 
+  LIBELLE VARCHAR(255), 
+  version double precision, 
+  PRIMARY KEY (id)
+);
+
+
+CREATE TABLE nature_prestation (
+  code VARCHAR(8) NOT NULL, 
+  date_modif DATE NOT NULL, 
+  encodeur VARCHAR(80), 
+  libelle VARCHAR(255), 
+  version double precision, 
+  PRIMARY KEY (code)
+);
+
+
+CREATE TABLE adresse (
+  code_adr VARCHAR(32) NOT NULL, 
+  BP VARCHAR(255), 
+  date_modif DATE NOT NULL, 
+  encodeur VARCHAR(80), 
+  MOBILE VARCHAR(255), 
+  QUARTIER VARCHAR(255), 
+  RUE VARCHAR(255), 
+  TELEPHONE VARCHAR(255), 
+  version double precision, 
+  ville VARCHAR(255), 
+  PRIMARY KEY (code_adr)
+);
+
+
+CREATE TABLE categorie_praticien (
+  code_cat VARCHAR(32) NOT NULL, 
+  date_modif DATE NOT NULL, 
+  encodeur VARCHAR(80), 
+  libelle VARCHAR(255), 
+  version double precision, 
+  PRIMARY KEY (code_cat)
+);
+
+CREATE TABLE categorie_patient (
+  code VARCHAR(8) NOT NULL, 
+  date_modif DATE NOT NULL, 
+  encodeur VARCHAR(80), 
+  libelle VARCHAR(255), 
+  version double precision, 
+  PRIMARY KEY (code)
+);
+
+CREATE TABLE frais_annuel_prestation (
+  id VARCHAR(32) NOT NULL, 
+  date_modif DATE NOT NULL, 
+  encodeur VARCHAR(80), 
+  montant FLOAT, 
+  version double precision, 
+  ANNEEMEDICALE_code_annee VARCHAR(8), 
+  CATEGORIEPATIENT_code VARCHAR(8), 
+  NATUREPRESTATION_code VARCHAR(8), 
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE specialite_medicale (
+  code VARCHAR(8) NOT NULL, 
+  date_modif DATE NOT NULL, 
+  encodeur VARCHAR(80), 
+  libelle VARCHAR(255), 
+  version double precision, 
+  PRIMARY KEY (code)
+);
+
+CREATE TABLE diagnostic_pathologique (
+  code_diagnostic_pathologique VARCHAR(32) NOT NULL, 
+  date_modif DATE NOT NULL, 
+  description VARCHAR(100), 
+  DIAGNOSTIC BYTEA, 
+  encodeur VARCHAR(80), 
+  observation VARCHAR(100), 
+  STATUSPATHOLOGIE VARCHAR(255), 
+  version long, 
+  PATHOLOGIE_id VARCHAR(32), 
+  PRIMARY KEY (code_diagnostic_pathologique)
+);
+
+
+
+CREATE TABLE annee_medical (
+  code_annee VARCHAR(8) NOT NULL, 
+  date_debut DATE, 
+  date_fin DATE, 
+  date_modif DATE NOT NULL, 
+  encodeur VARCHAR(80), 
+  version double precision, 
+  PRIMARY KEY (code_annee)
+);
+
+
+CREATE TABLE assurance_medical (
+  num_assurance VARCHAR(8) NOT NULL, 
+  date_delivrance DATE, 
+  date_expiration DATE, 
+  date_modif DATE NOT NULL, 
+  encodeur VARCHAR(80), 
+  TAUX FLOAT, 
+  taux_vitamine FLOAT, 
+  version double precision, 
+  assureur VARCHAR(255), 
+  PRIMARY KEY (num_assurance)
+);
+
+
+CREATE TABLE ASSUREURENTITE (
+  id VARCHAR(32) NOT NULL, 
+  date_modif DATE NOT NULL, 
+  DENOMINATION VARCHAR(255), 
+  encodeur VARCHAR(80), 
+  version double precision, 
+  PRIMARY KEY (id)
+);
+
+
+CREATE TABLE reglement (
+  num_reglement VARCHAR(32) NOT NULL, 
+  date_modif DATE NOT NULL, 
+  date_reglement DATE, 
+  encodeur VARCHAR(80), 
+  NUMREGLEMENT BIGINT, 
+  version Double precision, 
+  MODEREGLEMENT_code_mode VARCHAR(32), 
+  PRESTATION_num_prest VARCHAR(32), 
+  PRIMARY KEY (num_reglement)
+);
+
+
+CREATE TABLE SOINMEDICALENTITE (
+  id VARCHAR(32) NOT NULL, 
+  date_modif DATE NOT NULL, 
+  encodeur VARCHAR(80), 
+  version double precision, 
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE ligneDiagnostic (
+ id VARCHAR(32) NOT NULL, 
+ date_modif DATE NOT NULL, 
+ DIAGNOSTIC BYTEA, 
+ encodeur VARCHAR(80), 
+ etat VARCHAR(255), 
+ traits_particuliers VARCHAR(255), 
+ version double precision, 
+ CONSULTATION_num_cons VARCHAR(32), 
+ PRIMARY KEY (id)
+);
+
+
+CREATE TABLE PRODUITPHARMACEUTIQUEENTITE (
+ id VARCHAR(32) NOT NULL, 
+ date_modif DATE NOT NULL, 
+ DESIGNATION VARCHAR(255), 
+ encodeur VARCHAR(80), 
+ version double precision, 
+ CLASSE_id VARCHAR(32), 
+ PRIMARY KEY (id)
+);
+
+CREATE TABLE examen_medical (
+ code VARCHAR(8) NOT NULL, 
+ date_modif DATE NOT NULL, 
+ date_prescription DATE, 
+ encodeur VARCHAR(80), 
+ libelle VARCHAR(255), 
+ resultat VARCHAR(255), 
+ version double precision, 
+ consultation VARCHAR(255), 
+ PRIMARY KEY (code)
+);
+
+
+CREATE TABLE PATHOLOGIEENTITE (
+ id VARCHAR(32) NOT NULL, 
+ CARACTERISTIQUE VARCHAR(255), 
+ date_modif DATE NOT NULL, 
+ encodeur VARCHAR(80), 
+ LIBELLE VARCHAR(255), 
+ version double precision, 
+ PRIMARY KEY (id)
+);
+
+
+CREATE TABLE ORDONNANCEMEDICALEENTITE (
+ id VARCHAR(32) NOT NULL, 
+ date_modif DATE NOT NULL, 
+ DATEORDONNANCE TIMESTAMP, 
+ encodeur VARCHAR(80), 
+ LIGNEORDONNANCE BYTEA, 
+ version double precisions, 
+ CONSULTATION_num_cons VARCHAR(32), 
+ RDVSUIVANT_id VARCHAR(32), 
+ PRIMARY KEY (id)
+);
+
+
+CREATE TABLE HOSPITALISATIONENTITE (
+ id VARCHAR(32) NOT NULL, 
+ DATEENTREE TIMESTAMP, 
+ date_modif DATE NOT NULL, 
+ DATESORTIE TIMESTAMP, 
+ encodeur VARCHAR(80), 
+ OBSERVATION VARCHAR(255), 
+ version double precision, 
+ PATIENT_id_pers VARCHAR(32), 
+ SALLE_id VARCHAR(32), 
+ PRIMARY KEY (id)
+);
+
+CREATE TABLE RAYONENTITE (
+ id VARCHAR(32) NOT NULL, 
+ date_modif DATE NOT NULL, 
+ encodeur VARCHAR(80), 
+ version double precision, 
+ PRIMARY KEY (id)
+);
+
+
+CREATE TABLE RENDEZVOUSMEDICALENTITE (
+ id VARCHAR(32) NOT NULL, 
+ date_modif DATE NOT NULL, 
+ DATERDV TIMESTAMP, 
+ encodeur VARCHAR(80), 
+ version double precision, 
+ CONSULTATION_num_cons VARCHAR(32), 
+ PATIENT_id_pers VARCHAR(32), 
+ PRIMARY KEY (id)
+);
+
+
+ALTER TABLE frais_annuel_prestation 
+ADD CONSTRAINT UNQ_frais_annuel_prestation_0 
+UNIQUE (annee_medicale, categorie_patient, nature_prestation);
+
+ALTER TABLE ligneDiagnostic 
+ADD CONSTRAINT UNQ_ligneDiagnostic_0 
+UNIQUE (consultation, diagnostic);
+
+ALTER TABLE personne 
+ADD CONSTRAINT FK_personne_adresse FOREIGN KEY (adresse) REFERENCES adresse (code_adr);
+
+ALTER TABLE consultation 
+ADD CONSTRAINT FK_consultation_SPECIALITE_code FOREIGN KEY (SPECIALITE_code) REFERENCES specialite_medicale (code);
+
+
+ALTER TABLE prestation_medicale 
+ADD CONSTRAINT FK_prestation_medicale_NATURE_code FOREIGN KEY (NATURE_code) REFERENCES nature_prestation (code);
+
+
+ALTER TABLE frais_annuel_prestation 
+ADD CONSTRAINT FK_frais_annuel_prestation_NATUREPRESTATION_code FOREIGN KEY (NATUREPRESTATION_code) REFERENCES nature_prestation (code);
+
+ALTER TABLE diagnostic_pathologique ADD CONSTRAINT FK_diagnostic_pathologique_PATHOLOGIE_id FOREIGN KEY (PATHOLOGIE_id) REFERENCES PATHOLOGIEENTITE (id);
+
+ALTER TABLE assurance_medical ADD CONSTRAINT FK_assurance_medical_assureur FOREIGN KEY (assureur) REFERENCES ASSUREURENTITE (code_assureur);
+
+ALTER TABLE reglement 
+ADD CONSTRAINT FK_reglement_PRESTATION_num_prest FOREIGN KEY (PRESTATION_num_prest) REFERENCES icare.prestation_medicale (num_prest);
+
+ALTER TABLE ligneDiagnostic 
+ADD CONSTRAINT FK_ligneDiagnostic_CONSULTATION_num_cons FOREIGN KEY (CONSULTATION_num_cons) REFERENCES consultation (num_cons);
+
+ALTER TABLE PRODUITPHARMACEUTIQUEENTITE 
+ADD CONSTRAINT FK_PRODUITPHARMACEUTIQUEENTITE_CLASSE_id FOREIGN KEY (CLASSE_id) REFERENCES CLASSEPHARMACEUTIQUEENTITE (id);
+
+ALTER TABLE examen_medical 
+ADD CONSTRAINT FK_examen_medical_consultation FOREIGN KEY (consultation) REFERENCES consultation (code);
+
+ALTER TABLE ORDONNANCEMEDICALEENTITE 
+ADD CONSTRAINT FK_ORDONNANCEMEDICALEENTITE_CONSULTATION_num_cons FOREIGN KEY (CONSULTATION_num_cons) REFERENCES consultation (num_cons);
+
+ALTER TABLE HOSPITALISATIONENTITE 
+ADD CONSTRAINT FK_HOSPITALISATIONENTITE_PATIENT_id_pers FOREIGN KEY (PATIENT_id_pers) REFERENCES personne (id_pers);
+
+
+ALTER TABLE RENDEZVOUSMEDICALENTITE 
+ADD CONSTRAINT FK_RENDEZVOUSMEDICALENTITE_PATIENT_id_pers FOREIGN KEY (PATIENT_id_pers) REFERENCES personne (id_pers);
+
+
+
+
